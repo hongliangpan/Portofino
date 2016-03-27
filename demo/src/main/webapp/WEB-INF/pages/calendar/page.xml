@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="日历" description="工作日历" id="bcnsi6zp3qj6h94undl690xbo">
+    <layout template="default">
+        <childPages/>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions/>
+</page>

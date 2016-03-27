@@ -1,9 +1,10 @@
+import com.manydesigns.portofino.pageactions.chart.jfreechart.JFreeChartAction4AppBase
 import com.manydesigns.portofino.security.*
 
 import com.manydesigns.portofino.pageactions.chart.jfreechart.JFreeChartAction
 
 @RequiresPermissions(level = AccessLevel.VIEW)
-class MyChartAction extends JFreeChartAction {
+class MyChartAction extends JFreeChartAction4AppBase {
 
     //Automatically generated on %{new java.util.Date()} by ManyDesigns Portofino
     //Write your code here

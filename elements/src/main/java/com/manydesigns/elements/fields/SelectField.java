@@ -405,6 +405,11 @@ public class SelectField extends AbstractField<Object> {
                     (String) OgnlUtils.convertValue(optionValue, String.class);
             String optionLabel = option.getValue().label;
             String radioId = id + "_" + counter;
+            // hongliangpan add if for null value
+            if (null == optionValue) {
+                // 只显示 是否
+                continue;
+            }
             boolean checked =  optionValue.equals(value);
             writeRadioWithLabel(xb, radioId, optionLabel,
                     optionStringValue, checked);

@@ -20,8 +20,12 @@
 
 package com.manydesigns.portofino.chart;
 
-public abstract class AbstractChartGenerator implements ChartGenerator {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public abstract class AbstractChartGenerator implements ChartGenerator {
+    //hongliangpan add
+    public static final Logger logger = LoggerFactory.getLogger(Chart1DGenerator.class);
     //**************************************************************************
     // Public properties
     //**************************************************************************

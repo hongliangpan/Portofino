@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="用户" description="用户" navigationRoot="INHERIT" id="kv7jni7ae2k1d7y08alzhdgyl">
+    <layout template="default">
+        <childPages/>
+    </layout>
+    <detailLayout template="default">
+        <childPages>
+            <childPage order="0" showInNavigation="false" name="many_user_group_rel" container="default"/>
+        </childPages>
+    </detailLayout>
+    <permissions>
+        <group name="管理员">
+            <permission>crud-create</permission>
+            <permission>crud-edit</permission>
+            <permission>crud-delete</permission>
+        </group>
+    </permissions>
+</page>

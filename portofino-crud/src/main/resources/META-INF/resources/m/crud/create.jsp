@@ -20,6 +20,12 @@
         <stripes:form action="${actionBean.context.actionPath}" method="post"
                       id="${(not empty actionBean.crudConfiguration.name) ? actionBean.crudConfiguration.name : null}"
                       enctype="multipart/form-data" class="form-horizontal create">
+            <!-- hongliangpan add -->
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <portofino:buttons list="crud-create" />
+                </div>
+            </div>
             <mde:write name="actionBean" property="form"/>
             <input type="hidden" name="returnUrl" value="<c:out value="${actionBean.returnUrl}"/>"/>
             <div class="form-group">

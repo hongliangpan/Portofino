@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="sys_ip">
+    <annotations/>
+    <columns>
+        <column columnName="id" columnType="INT" length="10" jdbcType="4" autoincrement="true" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="ip_num" columnType="INT UNSIGNED" length="10" jdbcType="4" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="ip_str" columnType="VARCHAR" length="16" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="post_code" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="lon" columnType="FLOAT" length="10" scale="6" jdbcType="7" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="lat" columnType="FLOAT" length="10" scale="6" jdbcType="7" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="province" columnType="VARCHAR" length="16" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="city" columnType="VARCHAR" length="16" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="county" columnType="VARCHAR" length="16" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys/>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="id"/>
+    </primaryKey>
+    <selectionProviders/>
+</table>

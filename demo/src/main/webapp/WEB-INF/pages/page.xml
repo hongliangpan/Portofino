@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="BOSS" description="BOSS BY portofino 4" navigationRoot="GHOST_ROOT" id="root">
+    <layout template="default">
+        <childPages>
+            <childPage showInNavigation="true" name="welcome"/>
+            <childPage showInNavigation="false" name="login"/>
+            <childPage showInNavigation="true" name="ad"/>
+            <childPage showInNavigation="true" name="uba"/>
+            <childPage showInNavigation="true" name="tools"/>
+            <childPage showInNavigation="true" name="point"/>
+            <childPage showInNavigation="true" name="sys"/>
+            <childPage showInNavigation="true" name="samples"/>
+            <childPage showInNavigation="true" name="calendar"/>
+            <childPage showInNavigation="true" name="sys_province"/>
+        </childPages>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions>
+        <group level="EDIT" name="管理员">
+            <permission>crud-create</permission>
+            <permission>crud-edit</permission>
+            <permission>crud-delete</permission>
+        </group>
+    </permissions>
+</page>

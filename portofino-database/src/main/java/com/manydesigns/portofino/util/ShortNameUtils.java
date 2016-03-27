@@ -24,6 +24,9 @@ import com.manydesigns.elements.annotations.ShortName;
 import com.manydesigns.elements.reflection.ClassAccessor;
 import com.manydesigns.elements.reflection.PropertyAccessor;
 import com.manydesigns.elements.text.OgnlTextFormat;
+import org.hibernate.proxy.map.MapProxy;
+
+import java.util.HashMap;
 
 /*
 * @author Paolo Predonzani     - paolo.predonzani@manydesigns.com
@@ -55,6 +58,13 @@ public class ShortNameUtils {
             formatString = sb.toString();
         } else {
             formatString = annotation.value();
+        }
+		// hongliangpan add
+		if (object instanceof HashMap && null != ((HashMap) object).get("c_name")) {
+			formatString = "%{c_name}";
+		}
+        if (object instanceof MapProxy && null != ((MapProxy) object).get("c_name")) {
+            formatString = "%{c_name}";
         }
         OgnlTextFormat ognlTextFormat = OgnlTextFormat.create(formatString);
         return ognlTextFormat.format(object);

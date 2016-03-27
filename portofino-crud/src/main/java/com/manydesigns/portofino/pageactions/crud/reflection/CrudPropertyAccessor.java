@@ -95,17 +95,17 @@ public class CrudPropertyAccessor
                 annotations.put(Label.class,
                         new LabelImpl(label));
             }
-            crudEnabled    = crudProperty.isEnabled();
+            crudEnabled = crudProperty.isEnabled();
             crudSearchable = crudProperty.isSearchable();
-            crudInSummary  = crudProperty.isInSummary();
+            crudInSummary = crudProperty.isInSummary();
             crudInsertable = crudProperty.isInsertable();
-            crudUpdatable  = crudProperty.isUpdatable();
+            crudUpdatable = crudProperty.isUpdatable();
         } else {
-            crudEnabled    = inKey;
+            crudEnabled = inKey;
             crudSearchable = false;
-            crudInSummary  = inKey;
+            crudInSummary = inKey;
             crudInsertable = false;
-            crudUpdatable  = false;
+            crudUpdatable = false;
         }
 
         annotations.put(Searchable.class, new SearchableImpl(crudSearchable && accessorSearchable));
@@ -113,9 +113,13 @@ public class CrudPropertyAccessor
         annotations.put(Enabled.class, new EnabledImpl(crudEnabled && accessorEnabled));
         annotations.put(Insertable.class, new InsertableImpl(crudInsertable && accessorInsertable));
         annotations.put(Updatable.class, new UpdatableImpl(crudUpdatable && accessorUpdatable));
+        // hongliangpan add
+        UpdatableByRole updatableByRoleAnn = nestedAccessor.getAnnotation(UpdatableByRole.class);
+        if (null != updatableByRoleAnn) {
+            annotations.put(UpdatableByRole.class, new UpdatableByRoleImpl(updatableByRoleAnn.value()));
+        }
+
     }
-
-
     //**************************************************************************
     // PropertyAccessor implementation
     //**************************************************************************
@@ -168,4 +172,8 @@ public class CrudPropertyAccessor
     public String toString() {
         return crudProperty.getName() + " (" + nestedAccessor.getName() + ")";
     }
+	// hongliangpan add
+	public PropertyAccessor getNestedAccessor() {
+		return nestedAccessor;
+	}
 }

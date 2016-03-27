@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="" description="" id="v6cuj08cgnn6sig1y4nytt40w">
+    <layout template="default">
+        <childPages/>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions/>
+</page>

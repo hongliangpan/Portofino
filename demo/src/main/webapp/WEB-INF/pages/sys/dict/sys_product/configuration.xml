@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration database="point" query="from sys_product order by id desc" name="sys_product" searchTitle="Search 产品表" createTitle="Create 产品表" readTitle="产品表" editTitle="Edit 产品表" variable="sys_product" largeResultSet="false" rowsPerPage="10" columns="1">
+    <properties>
+        <property enabled="false" name="c_id" label="ID" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_code" label="产品编码" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_name" label="产品名称" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_desc" label="描述" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_is_deleted" label="废弃" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_pm" label="产品经理" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_psm" label="产品技术负责人" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_user" label="修改用户id" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_time" label="修改时间" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_json" label="json格式扩展信息" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag1" label="冗余字段1" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag2" label="冗余字段2" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag3" label="冗余字段3" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag4" label="冗余字段4" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+    </properties>
+    <selectionProviders/>
+</configuration>

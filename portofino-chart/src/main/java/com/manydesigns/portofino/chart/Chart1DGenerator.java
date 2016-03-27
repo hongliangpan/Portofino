@@ -21,11 +21,14 @@
 package com.manydesigns.portofino.chart;
 
 import com.manydesigns.elements.ElementsThreadLocals;
+import com.manydesigns.portofino.pageactions.chart.jfreechart.configuration.JFreeChartConfiguration;
 import com.manydesigns.portofino.persistence.Persistence;
 import com.manydesigns.portofino.persistence.QueryUtils;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.DrawingSupplier;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.title.LegendTitle;
@@ -40,6 +43,8 @@ import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.VerticalAlignment;
 
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
@@ -55,9 +60,9 @@ public abstract class Chart1DGenerator extends AbstractChartGenerator {
     //**************************************************************************
     // Other objects
     //**************************************************************************
-    private final Font titleFont = new Font("SansSerif", Font.BOLD, 12);
-    private final Font legendFont = new Font("SansSerif", Font.BOLD, 10);
-    private final Font legendItemFont = new Font("SansSerif", Font.PLAIN, 10);
+    private final Font titleFont = new Font(JFreeChartConfiguration.getFont(), Font.BOLD, 12);
+    private final Font legendFont = new Font(JFreeChartConfiguration.getFont(), Font.BOLD, 10);
+    private final Font legendItemFont = new Font(JFreeChartConfiguration.getFont(), Font.PLAIN, 10);
     private final Color transparentColor = new Color(0, true);
 
     public JFreeChart generate(ChartDefinition chartDefinition, Persistence persistence, Locale locale) {
@@ -110,6 +115,16 @@ public abstract class Chart1DGenerator extends AbstractChartGenerator {
         //Modifico il toolTip
 //        plot.setToolTipGenerator(new StandardPieToolTipGenerator("{0} = {1} ({2})"));
 
+        // hongliangpan add
+        plot.setLabelFont(new Font("宋体", Font.BOLD, 10));
+        // 图片中显示百分比:自定义方式，{0} 表示选项， {1} 表示数值， {2} 表示所占比例 ,小数点后两位
+        plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}={1}({2})", NumberFormat.getNumberInstance(),
+                new DecimalFormat("0.00%")));
+        // {0}={1}({2})
+        plot.setLegendLabelGenerator(new StandardPieSectionLabelGenerator("{0}"));
+        // 指定图片的透明度(0.0-1.0)
+        // plot.setForegroundAlpha(1.0f);
+
         // imposta la distanza delle etichette dal plot
         plot.setLabelGap(0.03);
 //        plot.setLabelGenerator(new MyPieSectionLabelGenerator());
@@ -124,7 +139,9 @@ public abstract class Chart1DGenerator extends AbstractChartGenerator {
         DrawingSupplier supplier =
                 new DesaturatedDrawingSupplier(plot.getDrawingSupplier());
         plot.setDrawingSupplier(supplier);
-
+        //hongliangpan add
+        // 设置柱的透明度
+        plot.setForegroundAlpha(1.0f);
         // impostiamo il titolo della legenda
         String legendString = chartDefinition.getLegend();
         Title subtitle = new TextTitle(legendString, legendFont, Color.BLACK,

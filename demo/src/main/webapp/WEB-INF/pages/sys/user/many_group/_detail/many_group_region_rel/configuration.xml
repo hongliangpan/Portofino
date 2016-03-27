@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration database="point" query="from many_group_region_rel where c_group_id = %{#many_group.c_id} order by id desc" name="many_group_region_rel" searchTitle="Search many group region rel" createTitle="Create many group region rel" readTitle="many group region rel" editTitle="Edit many group region rel" variable="many_group_region_rel" largeResultSet="false" rowsPerPage="10" columns="1">
+    <properties>
+        <property enabled="false" name="c_group_id" label="工作组ID" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_region_id" label="区域" insertable="false" updatable="false" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_config" label="扩展信息" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_create_user" label="创建用户" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_create_time" label="创建时间" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_user" label="修改用户" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_time" label="修改时间" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+    </properties>
+    <selectionProviders/>
+</configuration>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="ip区域表" description="ip区域表" navigationRoot="INHERIT" id="632ykftukcfxlxv5mxp64vxwg">
+    <layout template="default">
+        <childPages/>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions>
+        <group level="EDIT" name="管理员">
+            <permission>crud-create</permission>
+            <permission>crud-edit</permission>
+            <permission>crud-delete</permission>
+        </group>
+    </permissions>
+</page>

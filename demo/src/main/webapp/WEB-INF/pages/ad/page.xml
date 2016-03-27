@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="广告管理" description="产品轮播广告管理" navigationRoot="INHERIT" id="ivuz4mk1khqpyh3o1o631ec57">
+    <layout template="main-with-tabs">
+        <childPages>
+            <childPage order="0" showInNavigation="true" name="ad_config" container="default"/>
+        </childPages>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions>
+        <group level="EDIT" name="管理员"/>
+    </permissions>
+</page>

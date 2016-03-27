@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration database="point" query="from many_group order by id desc" name="many_group" searchTitle="Search 工作组" createTitle="Create 工作组" readTitle="工作组" editTitle="Edit 工作组" variable="many_group" largeResultSet="false" rowsPerPage="10" columns="2">
+    <properties>
+        <property enabled="false" name="c_id" label="ID" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_name" label="名称" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_display_name" label="名称" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_region_level" label="区域级别" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_desc" label="备注" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_sort_id" label="显示顺序" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_role" label="权限角色" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_config" label="扩展信息" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_create_user" label="创建用户" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_create_time" label="创建时间" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_user" label="修改用户" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_time" label="修改时间" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag1" label="备用字段" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag2" label="备用字段" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag3" label="备用字段" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag4" label="备用字段" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+    </properties>
+    <selectionProviders>
+        <selectionProvider enabled="true" selectionProvider="group_role" displayMode="DROPDOWN" searchDisplayMode="DROPDOWN" createNewValueText=""/>
+        <selectionProvider enabled="true" selectionProvider="group_region_level" displayMode="DROPDOWN" searchDisplayMode="DROPDOWN" createNewValueText=""/>
+    </selectionProviders>
+</configuration>

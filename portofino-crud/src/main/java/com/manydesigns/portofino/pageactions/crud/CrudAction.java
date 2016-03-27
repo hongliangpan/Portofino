@@ -84,8 +84,8 @@ public class CrudAction extends AbstractCrudAction<Object> {
             "Copyright (c) 2005-2015, ManyDesigns srl";
 
     public static final String[][] CRUD_CONFIGURATION_FIELDS =
-                {{"name", "database", "query", "searchTitle", "createTitle", "readTitle", "editTitle", "variable",
-                  "largeResultSet", "rowsPerPage", "columns"}};
+            {{"name", "database", "query", "searchTitle", "createTitle", "readTitle", "editTitle", "variable",
+                    "largeResultSet", "rowsPerPage", "columns"}};
 
     public Table baseTable;
 
@@ -142,7 +142,7 @@ public class CrudAction extends AbstractCrudAction<Object> {
         CCJSqlParserManager parserManager = new CCJSqlParserManager();
         try {
             PlainSelect plainSelect =
-                (PlainSelect) ((Select) parserManager.parse(new StringReader(queryString))).getSelectBody();
+                    (PlainSelect) ((Select) parserManager.parse(new StringReader(queryString))).getSelectBody();
             logger.debug("Query string {} contains select");
             List items = plainSelect.getSelectItems();
             if(items.size() != 1) {
@@ -160,7 +160,7 @@ public class CrudAction extends AbstractCrudAction<Object> {
             logger.debug("Query string {} does not contain select", e);
             queryString = "SELECT count(*) " + queryString;
             PlainSelect plainSelect =
-                (PlainSelect) ((Select) parserManager.parse(new StringReader(queryString))).getSelectBody();
+                    (PlainSelect) ((Select) parserManager.parse(new StringReader(queryString))).getSelectBody();
             plainSelect.setOrderByElements(null);
             return plainSelect.toString();
         }
@@ -235,14 +235,14 @@ public class CrudAction extends AbstractCrudAction<Object> {
         Database actualDatabase = getCrudConfiguration().getActualDatabase();
         if (actualDatabase == null) {
             logger.warn("Crud " + crudConfiguration.getName() + " (" + pageInstance.getPath() + ") " +
-                        "has an invalid database: " + getCrudConfiguration().getDatabase());
+                    "has an invalid database: " + getCrudConfiguration().getDatabase());
             return null;
         }
 
         baseTable = getCrudConfiguration().getActualTable();
         if (baseTable == null) {
             logger.warn("Crud " + crudConfiguration.getName() + " (" + pageInstance.getPath() + ") " +
-                        "has an invalid table");
+                    "has an invalid table");
             return null;
         }
 

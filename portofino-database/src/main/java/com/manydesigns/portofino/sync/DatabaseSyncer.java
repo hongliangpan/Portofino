@@ -20,12 +20,41 @@
 
 package com.manydesigns.portofino.sync;
 
+import com.google.api.client.repackaged.com.google.common.base.Strings;
+import com.google.common.base.Splitter;
+
 import com.manydesigns.elements.util.ReflectionUtil;
 import com.manydesigns.portofino.database.Type;
 import com.manydesigns.portofino.model.Annotated;
 import com.manydesigns.portofino.model.Annotation;
 import com.manydesigns.portofino.model.Model;
-import com.manydesigns.portofino.model.database.*;
+import com.manydesigns.portofino.model.database.Column;
+import com.manydesigns.portofino.model.database.ConnectionProvider;
+import com.manydesigns.portofino.model.database.Database;
+import com.manydesigns.portofino.model.database.DatabaseLogic;
+import com.manydesigns.portofino.model.database.ForeignKey;
+import com.manydesigns.portofino.model.database.Generator;
+import com.manydesigns.portofino.model.database.ModelSelectionProvider;
+import com.manydesigns.portofino.model.database.PrimaryKey;
+import com.manydesigns.portofino.model.database.PrimaryKeyColumn;
+import com.manydesigns.portofino.model.database.Reference;
+import com.manydesigns.portofino.model.database.Schema;
+import com.manydesigns.portofino.model.database.Table;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import liquibase.CatalogAndSchema;
 import liquibase.database.DatabaseConnection;
 import liquibase.database.DatabaseFactory;
@@ -34,16 +63,6 @@ import liquibase.snapshot.DatabaseSnapshot;
 import liquibase.snapshot.SnapshotControl;
 import liquibase.snapshot.SnapshotGeneratorFactory;
 import liquibase.structure.core.ForeignKeyConstraintType;
-import org.apache.commons.beanutils.BeanUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.Types;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * @author Paolo Predonzani     - paolo.predonzani@manydesigns.com
@@ -113,7 +132,7 @@ public class DatabaseSyncer {
 
                 logger.debug("Creating Liquibase database snapshot");
                 String catalog = null;
-                if(sourceSchema.getCatalog() != null) {
+                if (sourceSchema.getCatalog() != null) {
                     catalog = sourceSchema.getCatalog();
                 }
                 SnapshotControl snapshotControl = new SnapshotControl(liquibaseDatabase);
@@ -150,7 +169,7 @@ public class DatabaseSyncer {
 
     protected void syncForeignKeys(DatabaseSnapshot databaseSnapshot, Schema sourceSchema, Schema targetSchema) {
         logger.info("Synchronizing foreign keys");
-        for(liquibase.structure.core.ForeignKey liquibaseFK : databaseSnapshot.get(liquibase.structure.core.ForeignKey.class)) {
+        for (liquibase.structure.core.ForeignKey liquibaseFK : databaseSnapshot.get(liquibase.structure.core.ForeignKey.class)) {
             String fkName = liquibaseFK.getName();
             logger.info("Synchronizing foreign key {}", fkName);
             String fkTableName = liquibaseFK.getForeignKeyTable().getName();
@@ -159,7 +178,7 @@ public class DatabaseSyncer {
             Table targetFromTable = DatabaseLogic.findTableByNameIgnoreCase(targetSchema, fkTableName);
             if (targetFromTable == null) {
                 logger.error("Table '{}' not found in schema '{}'. Skipping foreign key: {}",
-                        new Object[] {
+                        new Object[]{
                                 fkTableName,
                                 targetSchema.getSchemaName(),
                                 fkName
@@ -181,14 +200,14 @@ public class DatabaseSyncer {
             targetFK.setToTableName(pkTableName);
             if (pkSchemaName == null || pkTableName == null) {
                 logger.error("Null schema or table name: foreign key " +
-                        "(schema: {}, table: {}, fk: {}) " +
-                        "references primary key (schema: {}, table: {}). Skipping foreign key.",
-                        new Object[] {
-                            targetFromTable.getSchemaName(),
-                            targetFromTable.getTableName(),
-                            fkName,
-                            pkSchemaName,
-                            pkTableName
+                                "(schema: {}, table: {}, fk: {}) " +
+                                "references primary key (schema: {}, table: {}). Skipping foreign key.",
+                        new Object[]{
+                                targetFromTable.getSchemaName(),
+                                targetFromTable.getTableName(),
+                                fkName,
+                                pkSchemaName,
+                                pkTableName
                         }
                 );
                 continue;
@@ -229,13 +248,13 @@ public class DatabaseSyncer {
 
             List<liquibase.structure.core.Column> fromColumns = liquibaseFK.getForeignKeyColumns();
             List<liquibase.structure.core.Column> toColumns = liquibaseFK.getPrimaryKeyColumns();
-            if(fromColumns.size() != toColumns.size()) {
+            if (fromColumns.size() != toColumns.size()) {
                 logger.error("Invalid foreign key {} - columns don't match", fkName);
                 continue;
             }
 
             boolean referencesHaveErrors = false;
-            for(int i = 0; i < fromColumns.size(); i++) {
+            for (int i = 0; i < fromColumns.size(); i++) {
                 String fromColumnName = fromColumns.get(i).getName();
                 String toColumnName = toColumns.get(i).getName();
 
@@ -244,7 +263,7 @@ public class DatabaseSyncer {
                                 targetFromTable, fromColumnName);
                 if (fromColumn == null) {
                     logger.error("Cannot find from column (schema: {}, table: {}, column: {}).",
-                            new Object[] {
+                            new Object[]{
                                     targetFromTable.getSchemaName(),
                                     targetFromTable.getTableName(),
                                     fromColumnName
@@ -257,7 +276,7 @@ public class DatabaseSyncer {
                         DatabaseLogic.findColumnByNameIgnoreCase(pkTable, toColumnName);
                 if (toColumn == null) {
                     logger.error("Cannot find to column (schema: {}, table: {}, column: {}).",
-                            new Object[] {
+                            new Object[]{
                                     pkTable.getSchemaName(),
                                     pkTable.getTableName(),
                                     toColumnName
@@ -275,7 +294,7 @@ public class DatabaseSyncer {
 
             if (referencesHaveErrors) {
                 logger.error("Skipping foreign key (schema: {}, table: {}, fk: {}) because of errors.",
-                        new Object[] {
+                        new Object[]{
                                 pkTable.getSchemaName(),
                                 pkTable.getTableName(),
                                 fkName
@@ -291,7 +310,7 @@ public class DatabaseSyncer {
                 sourceFK = DatabaseLogic.findForeignKeyByNameIgnoreCase(sourceTable, fkName);
             }
 
-            if(sourceFK != null) {
+            if (sourceFK != null) {
                 logger.debug("Found a foreign key with the same name in the previous version of the schema");
                 targetFK.setManyPropertyName(sourceFK.getManyPropertyName());
                 targetFK.setOnePropertyName(sourceFK.getOnePropertyName());
@@ -307,7 +326,7 @@ public class DatabaseSyncer {
         liquibase.structure.core.Table fkTable = databaseSnapshot.get(table);
         String fkTableName;
 
-        if(fkTable != null) {
+        if (fkTable != null) {
             fkTableName = fkTable.getName();
         } else {
             logger.warn("Could not normalize table name: " + table.getName() + "; most probably this is a sign of a foreign key to another schema, which is not supported at the moment.");
@@ -319,7 +338,7 @@ public class DatabaseSyncer {
 
     protected void syncPrimaryKeys(DatabaseSnapshot databaseSnapshot, Schema sourceSchema, Schema targetSchema) {
         logger.info("Synchronizing primary keys");
-        for(liquibase.structure.core.PrimaryKey liquibasePK : databaseSnapshot.get(liquibase.structure.core.PrimaryKey.class)) {
+        for (liquibase.structure.core.PrimaryKey liquibasePK : databaseSnapshot.get(liquibase.structure.core.PrimaryKey.class)) {
             String pkTableName = liquibasePK.getTable().getName();
 
             Table sourceTable = DatabaseLogic.findTableByNameIgnoreCase(sourceSchema, pkTableName);
@@ -352,16 +371,16 @@ public class DatabaseSyncer {
             }
 
             boolean pkColumnsHaveErrors = false;
-            for(String columnName : columnNamesAsList) {
+            for (String columnName : columnNamesAsList) {
                 PrimaryKeyColumn targetPKColumn = new PrimaryKeyColumn(targetPK);
 
                 Column pkColumn = DatabaseLogic.findColumnByNameIgnoreCase(targetTable, columnName);
                 if (pkColumn == null) {
                     logger.error("Primary key (table: {}, pk: {}) has invalid column: {}",
-                            new Object[] {
-                                pkTableName,
-                                primaryKeyName,
-                                columnName
+                            new Object[]{
+                                    pkTableName,
+                                    primaryKeyName,
+                                    columnName
                             }
                     );
                     pkColumnsHaveErrors = true;
@@ -369,13 +388,13 @@ public class DatabaseSyncer {
                 }
                 targetPKColumn.setColumnName(pkColumn.getColumnName());
 
-                if(sourcePK != null) {
+                if (sourcePK != null) {
                     PrimaryKeyColumn sourcePKColumn =
                             sourcePK.findPrimaryKeyColumnByNameIgnoreCase(columnName);
-                    if(sourcePKColumn != null) {
+                    if (sourcePKColumn != null) {
                         logger.debug("Found source PK column: {}", columnName);
                         Generator sourceGenerator = sourcePKColumn.getGenerator();
-                        if(sourceGenerator != null) {
+                        if (sourceGenerator != null) {
                             logger.debug("Found generator: {}", sourceGenerator);
                             Generator targetGenerator =
                                     (Generator) ReflectionUtil.newInstance(sourceGenerator.getClass());
@@ -414,7 +433,7 @@ public class DatabaseSyncer {
             String tableName = liquibaseTable.getName();
             logger.info("Processing table: {}", tableName);
             Table sourceTable = DatabaseLogic.findTableByNameIgnoreCase(sourceSchema, tableName);
-            if(sourceTable == null) {
+            if (sourceTable == null) {
                 logger.debug("Added new table: {}", tableName);
                 sourceTable = new Table();
             }
@@ -422,7 +441,12 @@ public class DatabaseSyncer {
             targetSchema.getTables().add(targetTable);
 
             targetTable.setTableName(tableName);
-
+            // hongliangpan add
+            targetTable.setMemo(liquibaseTable.getRemarks());
+            if (org.apache.commons.lang.StringUtils.isBlank(targetTable.getMemo())) {
+                targetTable.setMemo(getTableCommentShort(tableName));
+                targetTable.setRemark(getTableComment(tableName));
+            }
             logger.debug("Merging table attributes and annotations");
             targetTable.setEntityName(sourceTable.getEntityName());
             targetTable.setJavaClass(sourceTable.getJavaClass());
@@ -436,7 +460,7 @@ public class DatabaseSyncer {
     }
 
     protected void copySelectionProviders(Table sourceTable, Table targetTable) {
-        for(ModelSelectionProvider sourceSP : sourceTable.getSelectionProviders()) {
+        for (ModelSelectionProvider sourceSP : sourceTable.getSelectionProviders()) {
             ModelSelectionProvider targetSP =
                     (ModelSelectionProvider) ReflectionUtil.newInstance(sourceSP.getClass());
             try {
@@ -458,41 +482,44 @@ public class DatabaseSyncer {
     protected void syncColumns
             (liquibase.structure.core.Table liquibaseTable, final Table sourceTable, Table targetTable) {
         logger.debug("Synchronizing columns");
-        for(liquibase.structure.core.Column liquibaseColumn : liquibaseTable.getColumns()) {
+        for (liquibase.structure.core.Column liquibaseColumn : liquibaseTable.getColumns()) {
             logger.debug("Processing column: {}", liquibaseColumn.getName());
 
             Column targetColumn = new Column(targetTable);
 
             targetColumn.setColumnName(liquibaseColumn.getName());
+            // hongliangpan add
+            targetColumn.setMemo(toShort(liquibaseColumn.getRemarks()));
+            targetColumn.setRemark(liquibaseColumn.getRemarks());
 
             logger.debug("Merging column attributes and annotations");
             targetColumn.setAutoincrement(liquibaseColumn.isAutoIncrement());
             Integer jdbcType = liquibaseColumn.getType().getDataTypeId();
             String jdbcTypeName = liquibaseColumn.getType().getTypeName();
-            if("Oracle".equals(connectionProvider.getDatabaseProductName())) {
+            if ("Oracle".equals(connectionProvider.getDatabaseProductName())) {
                 //Wait for a bugfix in Liquibase
-                if(jdbcType == null || jdbcType == Types.OTHER) {
-                    if(jdbcTypeName != null && jdbcTypeName.toUpperCase().startsWith("TIMESTAMP")) {
+                if (jdbcType == null || jdbcType == Types.OTHER) {
+                    if (jdbcTypeName != null && jdbcTypeName.toUpperCase().startsWith("TIMESTAMP")) {
                         jdbcType = Types.TIMESTAMP;
                     }
-                } else if(jdbcType == Types.DATE) {
+                } else if (jdbcType == Types.DATE) {
                     boolean dateTypePresent = false;
-                    for(Type type : connectionProvider.getTypes()) {
-                        if(type.getTypeName().equals("DATE")) {
+                    for (Type type : connectionProvider.getTypes()) {
+                        if (type.getTypeName().equals("DATE")) {
                             dateTypePresent = true;
                             break;
                         }
                     }
-                    if(!dateTypePresent) {
+                    if (!dateTypePresent) {
                         //DATE type not present, map to TIMESTAMP
                         jdbcType = Types.TIMESTAMP;
                     }
                 }
             }
-            if(jdbcType == null) {
+            if (jdbcType == null) {
                 jdbcType = Types.OTHER;
             }
-            if(jdbcType == Types.OTHER) {
+            if (jdbcType == Types.OTHER) {
                 logger.debug("jdbcType = OTHER, trying to determine more specific type from type name");
 
                 try {
@@ -510,12 +537,22 @@ public class DatabaseSyncer {
             //TODO liquibaseColumn.getLengthSemantics()
 
             Column sourceColumn = DatabaseLogic.findColumnByNameIgnoreCase(sourceTable, liquibaseColumn.getName());
-            if(sourceColumn != null) {
+            if (sourceColumn != null) {
                 targetColumn.setPropertyName(sourceColumn.getPropertyName());
                 targetColumn.setJavaType(sourceColumn.getJavaType());
                 copyAnnotations(sourceColumn, targetColumn);
+                // hongliangpan add
+                targetColumn.setNullable(sourceColumn.isNullable());
             }
-
+            // hongliangpan add
+            if (targetColumn.getColumnName().startsWith("c_is_")) {
+                targetColumn.setJavaType(Boolean.class.getName());
+            }
+            // "TIMESTAMP"可以为空hongliangpan add
+            if ("TIMESTAMP".equals(liquibaseColumn.getObjectTypeName()) || "DATETIME".equals(liquibaseColumn.getObjectTypeName())) {
+                targetColumn.setNullable(true);
+                addAnnotation(targetColumn, "com.manydesigns.elements.annotations.DateFormat", "yyyy-MM-dd HH:mm:ss");
+            }
             logger.debug("Column creation successfull. Adding column to table.");
             targetTable.getColumns().add(targetColumn);
         }
@@ -524,19 +561,20 @@ public class DatabaseSyncer {
         Collections.sort(targetTable.getColumns(), new Comparator<Column>() {
             private int oldIndex(Column c) {
                 int i = 0;
-                for(Column old : sourceTable.getColumns()) {
-                    if(old.getColumnName().equals(c.getColumnName())) {
+                for (Column old : sourceTable.getColumns()) {
+                    if (old.getColumnName().equals(c.getColumnName())) {
                         return i;
                     }
                     i++;
                 }
                 return -1;
             }
+
             public int compare(Column c1, Column c2) {
                 Integer index1 = oldIndex(c1);
                 Integer index2 = oldIndex(c2);
-                if(index1 != -1) {
-                    if(index2 != -1) {
+                if (index1 != -1) {
+                    if (index2 != -1) {
                         return index1.compareTo(index2);
                     } else {
                         return -1;
@@ -549,15 +587,91 @@ public class DatabaseSyncer {
     }
 
     protected void copyAnnotations(Annotated source, Annotated target) {
-        for(Annotation ann : source.getAnnotations()) {
+        for (Annotation ann : source.getAnnotations()) {
             Annotation annCopy = new Annotation();
             annCopy.setParent(target);
             annCopy.setType(ann.getType());
-            for(String value : ann.getValues()) {
+            for (String value : ann.getValues()) {
                 annCopy.getValues().add(value);
             }
             target.getAnnotations().add(annCopy);
         }
     }
 
+    /***
+     * hongliangpan add
+     */
+    public void addAnnotation(Column targetColumn, String type, String value) {
+        boolean hasThisTypeAnnotation = false;
+        for (Annotation annotation : targetColumn.getAnnotations()) {
+            if (type.equals(annotation.getType())) {
+                hasThisTypeAnnotation = true;
+                break;
+            }
+        }
+        if (!hasThisTypeAnnotation) {
+            Annotation anno = new Annotation();
+            anno.setType(type);
+            anno.getValues().add(value);
+            targetColumn.getAnnotations().add(anno);
+        }
+    }
+    //hongliangpan add
+    private String toShort(String memo) {
+        if (Strings.isNullOrEmpty(memo)) {
+            return memo;
+        }
+        memo = memo.replaceAll(";", ",");
+        memo = memo.replaceAll("，", ",");
+
+        if (memo.indexOf(",") >= 0) {
+            return Splitter.on(",").split(memo).iterator().next();
+        }
+        if (memo.length() > 10) {
+            memo = memo.substring(0, 10);
+        }
+        return memo;
+    }
+    // hongliangpan add
+    private String getTableCommentShort(String tableName) {
+        String memo = getTableComment(tableName);
+        return toShort(memo);
+    }
+
+    // hongliangpan add
+    private String getTableComment(String tableName) {
+        Statement st = null;
+        ResultSet rs = null;
+        Connection conn = null;
+        String result = "";
+        try {
+            conn = connectionProvider.acquireConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery("SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='" + tableName
+                    + "'");
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+                if (st != null) {
+                    st.close();
+                    st = null;
+                }
+                if (conn != null) {
+                    conn.close();
+                    conn = null;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

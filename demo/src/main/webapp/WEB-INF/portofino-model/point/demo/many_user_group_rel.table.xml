@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="many_user_group_rel">
+    <annotations/>
+    <columns>
+        <column columnName="c_group_id" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_user_id" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_config" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_time" columnType="DATETIME" length="19" jdbcType="93" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_time" columnType="TIMESTAMP" length="19" jdbcType="93" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys>
+        <foreignKey toTable="many_group" toSchema="demo" onUpdate="importedKeyNoAction" onDelete="importedKeyCascade" name="fk_sgu_group_id" toDatabase="point" hql="from many_group">
+            <references>
+                <reference fromColumn="c_group_id" toColumn="c_id"/>
+            </references>
+        </foreignKey>
+        <foreignKey toTable="many_user" toSchema="demo" onUpdate="importedKeyNoAction" onDelete="importedKeyCascade" name="fk_sgu_user_id" toDatabase="point" hql="from many_user">
+            <references>
+                <reference fromColumn="c_user_id" toColumn="c_id"/>
+            </references>
+        </foreignKey>
+    </foreignKeys>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="c_group_id"/>
+        <column columnName="c_user_id"/>
+    </primaryKey>
+    <selectionProviders>
+        <query name="group_name" toDatabase="point" hql="" sql="SELECT c_id,c_name FROM many_group">
+            <references>
+                <reference fromColumn="c_group_id"/>
+            </references>
+        </query>
+        <query name="user_name" toDatabase="point" hql="" sql="SELECT c_id,c_name FROM many_user">
+            <references>
+                <reference fromColumn="c_user_id"/>
+            </references>
+        </query>
+    </selectionProviders>
+</table>

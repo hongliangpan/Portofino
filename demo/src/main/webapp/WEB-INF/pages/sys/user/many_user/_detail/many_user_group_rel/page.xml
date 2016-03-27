@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="用户所属共组" description="用户所属共组" navigationRoot="INHERIT" id="p9yu4f9ci4aam8l5x0zkpgz8y">
+    <layout template="default">
+        <childPages/>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions/>
+</page>

@@ -103,8 +103,9 @@ public class TablesAction extends AbstractActionBean {
     protected String returnUrl;
     protected String shortName;
     protected String selectionProviderName;
-    protected final Map<String, String> fkOnePropertyNames = new HashMap<String, String>();
-    protected final Map<String, String> fkManyPropertyNames = new HashMap<String, String>();
+    // hongliangpan change HashMap to TreeMap 保证模型每次输出 顺序一致
+    protected final Map<String, String> fkOnePropertyNames = new LinkedHashMap<String, String>();
+    protected final Map<String, String> fkManyPropertyNames = new LinkedHashMap<String, String>();
 
     //**************************************************************************
     // Domain objects

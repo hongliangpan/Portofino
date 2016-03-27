@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="工作组" description="工作组" navigationRoot="INHERIT" id="w9tvtizwq4zfpwyoulidlxwda">
+    <layout template="default">
+        <childPages/>
+    </layout>
+    <detailLayout template="default">
+        <childPages>
+            <childPage showInNavigation="true" name="many_group_region_rel"/>
+            <childPage order="0" showInNavigation="false" name="many_user_group_rel" container="default"/>
+        </childPages>
+    </detailLayout>
+    <permissions/>
+</page>

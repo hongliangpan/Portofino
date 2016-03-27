@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="many_dict_type">
+    <annotations/>
+    <columns>
+        <column columnName="c_id" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_name" columnType="VARCHAR" length="40" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_config" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_order" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys/>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="c_id"/>
+    </primaryKey>
+    <selectionProviders/>
+</table>

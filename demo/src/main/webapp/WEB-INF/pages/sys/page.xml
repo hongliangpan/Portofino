@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="系统管理" description="系统管理" navigationRoot="INHERIT" id="f2gduc0s6xexkuj2guij1quu4">
+    <layout template="main-with-tabs">
+        <childPages>
+            <childPage showInNavigation="true" name="user"/>
+            <childPage showInNavigation="true" name="dict"/>
+            <childPage showInNavigation="true" name="config"/>
+        </childPages>
+    </layout>
+    <detailLayout>
+        <childPages/>
+    </detailLayout>
+    <permissions/>
+</page>

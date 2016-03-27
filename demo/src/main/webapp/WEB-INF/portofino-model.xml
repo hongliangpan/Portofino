@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model>
+    <databases>
+        <database databaseName="point">
+            <jdbcConnection driver="com.mysql.jdbc.Driver"
+                            url="jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true"
+                            username="ysg_point" password="ysg4rfde32wsaq1"/>
+            <schemas>
+                <schema catalog="demo" schemaName="demo">
+                    <tables/>
+                </schema>
+            </schemas>
+        </database>
+
+    </databases>
+</model>

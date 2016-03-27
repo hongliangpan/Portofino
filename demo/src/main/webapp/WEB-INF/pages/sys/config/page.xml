@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="配置管理" description="配置管理" navigationRoot="INHERIT" id="6x5jezsobioinrhzjlmmo8fkw">
+    <layout template="default">
+        <childPages>
+            <childPage showInNavigation="true" name="sys_ip"/>
+        </childPages>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions/>
+</page>

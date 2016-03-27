@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="many_dept">
+    <annotations/>
+    <columns>
+        <column columnName="c_id" columnType="INT" length="10" jdbcType="4" autoincrement="true" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_code" columnType="VARCHAR" length="50" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_name" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_parent_id" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_desc" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_path" columnType="VARCHAR" length="255" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_level" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_sort_id" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_config" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_time" columnType="DATETIME" length="19" jdbcType="93" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_time" columnType="TIMESTAMP" length="19" jdbcType="93" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_tag1" columnType="VARCHAR" length="50" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag2" columnType="VARCHAR" length="50" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag3" columnType="VARCHAR" length="50" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag4" columnType="VARCHAR" length="50" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_full_path_name" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys/>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="c_id"/>
+    </primaryKey>
+    <selectionProviders>
+        <query name="dept_parent_id" toDatabase="point" hql="" sql="SELECT c_id ,c_name FROM many_dept">
+            <references>
+                <reference fromColumn="c_parent_id"/>
+            </references>
+        </query>
+    </selectionProviders>
+</table>

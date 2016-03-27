@@ -54,9 +54,7 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.sql.*;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -136,7 +134,146 @@ public class QueryUtils {
 
         return result;
     }
+    /**
+     * Runs a SQL query against a session. The query is processed with an {@link OgnlSqlFormat}, so it can access values
+     * from the OGNL context.
+     *
+     * @param session the session
+     * @param sql the query string
+     * @return the results of the query as an Object[] (an array cell per column)
+     */
+    // hongliangpan add
+    public static List<Map<String, Object>> runSqlReturnMap(Session session, String sql) {
+        OgnlSqlFormat sqlFormat = OgnlSqlFormat.create(sql);
+        String formatString = sqlFormat.getFormatString();
+        Object[] parameters = sqlFormat.evaluateOgnlExpressions(null);
+        return runSqlReturnMap(session, formatString, parameters);
+    }
 
+    /**
+     * Runs a SQL query against a session. The query can contain placeholders for the parameters, as supported by
+     * {@link PreparedStatement}.
+     *
+     * @param session the session
+     * @param queryString the query
+     * @param parameters parameters to substitute in the query
+     * @return the results of the query as an Object[] (an array cell per column)
+     */
+    // hongliangpan add
+    public static List<Map<String, Object>> runSqlReturnMap(Session session, final String queryString,
+                                                            final Object[] parameters) {
+        final List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+
+        try {
+            session.doWork(new Work() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement stmt = connection.prepareStatement(queryString);
+                    ResultSet rs = null;
+                    try {
+                        for (int i = 0; i < parameters.length; i++) {
+                            stmt.setObject(i + 1, parameters[i]);
+                        }
+                        rs = stmt.executeQuery();
+                        ResultSetMetaData md = rs.getMetaData();
+                        int cc = md.getColumnCount();
+
+                        while (rs.next()) {
+                            Map<String, Object> t_row = new LinkedHashMap<String, Object>();
+                            for (int i = 0; i < cc; i++) {
+                                Object t_value = rs.getObject(i + 1);
+                                t_row.put(md.getColumnLabel(i + 1), t_value);
+                            }
+                            result.add(t_row);
+                        }
+                    } finally {
+                        if (null != rs) {
+                            rs.close();
+                        }
+                        if (null != stmt) {
+                            stmt.close();
+                        }
+                    }
+                }
+            });
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            session.beginTransaction();
+            throw e;
+        }
+
+        return result;
+    }
+
+    /**
+     * Runs a SQL query against a session. The query is processed with an {@link OgnlSqlFormat}, so it can access values
+     * from the OGNL context.<br>
+     * INSERT UPDATE DELETE DROP CREATE ALTER TRUNCATE RENAME hongliangpan add
+     *
+     * @param session the session
+     * @param sql the query string
+     * @return the results of the query as an Object[] (an array cell per column)
+     */
+    public static int runSqlDml(Session session, String sql) {
+        OgnlSqlFormat sqlFormat = OgnlSqlFormat.create(sql);
+        final String queryString = sqlFormat.getFormatString();
+        final List<Integer> result = new ArrayList<Integer>();
+        try {
+            session.doWork(new Work() {
+                public void execute(Connection connection) throws SQLException {
+                    Statement stmt = connection.createStatement();
+                    try {
+                        result.add(stmt.executeUpdate(queryString));
+                    } finally {
+                        stmt.close();
+                    }
+                }
+            });
+        } catch (HibernateException e) {
+            result.add(-1);
+            session.getTransaction().rollback();
+            session.beginTransaction();
+            throw e;
+        }
+        if (result.size() > 0) {
+            return result.get(0);
+        }
+        return -1;
+    }
+
+    /**
+     * Runs a SQL query against a session. The query can contain placeholders for the parameters, as supported by
+     * {@link PreparedStatement}. <br>
+     * INSERT UPDATE DELETE DROP CREATE ALTER TRUNCATE RENAME hongliangpan add
+     *
+     * @param session the session
+     * @param queryString the query
+     * @param parameters parameters to substitute in the query
+     * @return the results of the query as an Object[] (an array cell per column)
+     */
+    public static int runSqlDml(Session session, final String queryString, final Object[] parameters) {
+        final List<Integer> result = new ArrayList<Integer>();
+        try {
+            session.doWork(new Work() {
+                public void execute(Connection connection) throws SQLException {
+                    Statement stmt = connection.createStatement();
+                    try {
+                        result.add(stmt.executeUpdate(queryString));
+                    } finally {
+                        stmt.close();
+                    }
+                }
+            });
+        } catch (HibernateException e) {
+            result.add(-1);
+            session.getTransaction().rollback();
+            session.beginTransaction();
+            throw e;
+        }
+        if (result.size() > 0) {
+            return result.get(0);
+        }
+        return -1;
+    }
     /**
      * Runs a query, expressed as {@link TableCriteria}, against the database.
      * @param session the session

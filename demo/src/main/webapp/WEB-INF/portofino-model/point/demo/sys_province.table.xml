@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="sys_province">
+    <annotations/>
+    <columns>
+        <column columnName="id" columnType="INT" length="10" jdbcType="4" autoincrement="true" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="code" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="name" columnType="VARCHAR" length="30" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="pinyin" columnType="VARCHAR" length="30" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="nation_code" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="modify_time" columnType="DATETIME" length="19" jdbcType="93" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="modify_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="version" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys/>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="id"/>
+    </primaryKey>
+    <selectionProviders/>
+</table>

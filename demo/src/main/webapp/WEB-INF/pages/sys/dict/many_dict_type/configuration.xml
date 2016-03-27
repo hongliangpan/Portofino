@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration database="point" query="from many_dict_type order by id desc" name="many_dict_type" searchTitle="Search 字典类型" createTitle="Create 字典类型" readTitle="字典类型" editTitle="Edit 字典类型" variable="many_dict_type" largeResultSet="false" rowsPerPage="10" columns="1">
+    <properties>
+        <property enabled="true" name="c_id" label="类型编码" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_name" label="类型名称" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_config" label="扩展信息" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_order" label="排序号" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+    </properties>
+    <selectionProviders/>
+</configuration>

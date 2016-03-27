@@ -36,12 +36,15 @@ import com.manydesigns.portofino.modules.Module;
 import com.manydesigns.portofino.modules.ModuleRegistry;
 import com.manydesigns.portofino.scripting.ScriptingUtil;
 import com.manydesigns.portofino.stripes.ResolverUtil;
+import com.manydesigns.portofino.utils.BaseContextUtils;
+import groovy.lang.GroovyClassLoader;
 import groovy.util.GroovyScriptEngine;
 import org.apache.commons.configuration.CompositeConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.interpol.ConfigurationInterpolator;
+import org.codehaus.groovy.control.CompilerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -77,7 +80,7 @@ public class PortofinoListener
     public static final String SEPARATOR =
             "----------------------------------------" +
                     "----------------------------------------";
-    
+
     public static final String PORTOFINO_MESSAGES_FILE_NAME = "portofino-messages.properties";
 
     //**************************************************************************
@@ -133,6 +136,8 @@ public class PortofinoListener
         servletContext.setAttribute(BaseModule.SERVLET_CONTEXT, servletContext);
         servletContext.setAttribute(BaseModule.SERVER_INFO, serverInfo);
 
+        // hongliangpan add
+        BaseContextUtils.setApplicationDirectory(applicationDirectory);
         setupCommonsConfiguration();
 
         elementsConfiguration = ElementsProperties.getConfiguration();
@@ -189,11 +194,19 @@ public class PortofinoListener
         logger.info("Groovy classpath: " + groovyClasspath.getAbsolutePath());
         GroovyScriptEngine groovyScriptEngine =
                 ScriptingUtil.createScriptEngine(groovyClasspath, getClass().getClassLoader());
-        ClassLoader classLoader = groovyScriptEngine.getGroovyClassLoader();
+        GroovyClassLoader classLoader = groovyScriptEngine.getGroovyClassLoader();
         servletContext.setAttribute(BaseModule.GROOVY_CLASS_PATH, groovyClasspath);
         servletContext.setAttribute(BaseModule.CLASS_LOADER, classLoader);
         servletContext.setAttribute(BaseModule.GROOVY_SCRIPT_ENGINE, groovyScriptEngine);
 
+        // hongliangpan add utf-8 编码,解决 中文乱码问题
+        CompilerConfiguration config=new CompilerConfiguration();
+        config.setSourceEncoding("utf-8");
+        groovyScriptEngine.setConfig(config);
+        BaseContextUtils.setGroovyClasspath(groovyClasspath);
+        BaseContextUtils.setGroovyScriptEngine(groovyScriptEngine);
+        BaseContextUtils.setClassLoader(classLoader);
+        BaseContextUtils.setBlobManager(defaultBlobManager);
         logger.debug("Installing I18n ResourceBundleManager");
         ResourceBundleManager resourceBundleManager = new ResourceBundleManager();
         try {
@@ -235,11 +248,11 @@ public class PortofinoListener
 
         String lineSeparator = System.getProperty("line.separator", "\n");
         logger.info(lineSeparator + SEPARATOR +
-                lineSeparator + "--- ManyDesigns Portofino " + ModuleRegistry.getPortofinoVersion() + " started successfully" +
-                lineSeparator + "--- Context path: {}" +
-                lineSeparator + "--- Real path: {}" +
-                lineSeparator + "--- Visit http://portofino.manydesigns.com for news, documentation, issue tracker, community forums, commercial support!" +
-                lineSeparator + SEPARATOR,
+                        lineSeparator + "--- ManyDesigns Portofino " + ModuleRegistry.getPortofinoVersion() + " started successfully" +
+                        lineSeparator + "--- Context path: {}" +
+                        lineSeparator + "--- Real path: {}" +
+                        lineSeparator + "--- Visit http://portofino.manydesigns.com for news, documentation, issue tracker, community forums, commercial support!" +
+                        lineSeparator + SEPARATOR,
                 new String[]{
                         serverInfo.getContextPath(),
                         serverInfo.getRealPath()
@@ -312,6 +325,8 @@ public class PortofinoListener
             compositeConfiguration.addConfiguration(configuration);
             configuration = compositeConfiguration;
         }
+        // hongliangpan add
+        BaseContextUtils.setConfiguration(configuration);
     }
 
     public void setupCommonsConfiguration() {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration database="point" query="from sys_province order by id desc" name="sys_province" searchTitle="Search " createTitle="Create " readTitle="" editTitle="Edit " variable="sys_province" largeResultSet="false" rowsPerPage="10" columns="1">
+    <properties>
+        <property enabled="false" name="id" label="自动编号" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="code" label="省份代码" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="name" label="省份名称" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="pinyin" label="省份拼音" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="nation_code" label="国家代码" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="modify_time" label="记录创建时间" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="modify_user" label="记录创建者" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="version" label="记录版本" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+    </properties>
+    <selectionProviders/>
+</configuration>

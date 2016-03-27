@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="many_user">
+    <annotations/>
+    <columns>
+        <column columnName="c_id" columnType="INT" length="10" jdbcType="4" autoincrement="true" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_code" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_name" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_display_name" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_password" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations>
+                <annotation type="com.manydesigns.elements.annotations.Password"/>
+            </annotations>
+        </column>
+        <column columnName="c_dept_id" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_region_id" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_email" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_token" columnType="VARCHAR" length="50" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_type" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_sex" columnType="VARCHAR" length="6" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_mobile" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_phone" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_fax" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_address" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_desc" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_login_count" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_time" columnType="DATETIME" length="19" jdbcType="93" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_time" columnType="TIMESTAMP" length="19" jdbcType="93" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_tag1" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag2" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag3" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag4" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys/>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="c_id"/>
+    </primaryKey>
+    <selectionProviders>
+        <query name="user_region" toDatabase="point" hql="" sql="SELECT c_id c_region_id,c_path_name c_name FROM sys_region">
+            <references>
+                <reference fromColumn="c_region_id"/>
+            </references>
+        </query>
+        <query name="user_dept" toDatabase="point" hql="" sql="SELECT c_id ,c_name FROM many_dept">
+            <references>
+                <reference fromColumn="c_dept_id"/>
+            </references>
+        </query>
+    </selectionProviders>
+</table>

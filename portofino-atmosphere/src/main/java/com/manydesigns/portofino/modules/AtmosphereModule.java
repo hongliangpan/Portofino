@@ -46,7 +46,7 @@ public class AtmosphereModule implements Module {
     public ServletContext servletContext;
 
     public static final String NOTIFICATION_SERVICE =
-            "com.manydesigns.portofino.modules.AtmosphereModule.notificationService";
+            "com.manydesigns.portofino.modules.AtmosphereModule.NotificationService";
 
     protected ModuleStatus status = ModuleStatus.CREATED;
 

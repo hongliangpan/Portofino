@@ -49,7 +49,8 @@ public class OgnlTextFormat
     //**************************************************************************
 
     protected boolean url = false;
-    protected String encoding = "ISO-8859-1";
+    //hongliangpan  change
+    protected String encoding ="UTF-8";// "ISO-8859-1";
     protected Locale locale;
 
     public static final Logger logger =

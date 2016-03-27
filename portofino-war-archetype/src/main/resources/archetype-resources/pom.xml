@@ -29,6 +29,12 @@
         -->
         <dependency>
             <groupId>com.manydesigns</groupId>
+            <artifactId>portofino-mysql</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--<dependency>
+            <groupId>com.manydesigns</groupId>
             <artifactId>portofino-derby</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
@@ -57,12 +63,7 @@
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.manydesigns</groupId>
-            <artifactId>portofino-mysql</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>compile</scope>
-        </dependency>
+
         <dependency>
             <groupId>com.manydesigns</groupId>
             <artifactId>portofino-oracle</artifactId>
@@ -74,7 +75,7 @@
             <artifactId>portofino-postgresql</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
-        </dependency>
+        </dependency>-->
 
         <!--
         ///////////////////////////////////////////////////////////////////////

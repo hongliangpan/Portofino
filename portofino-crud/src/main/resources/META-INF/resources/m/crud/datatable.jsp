@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="mde" uri="/manydesigns-elements" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="portofino" %>
@@ -6,6 +7,7 @@
 <%@ page import="com.manydesigns.portofino.pageactions.crud.AbstractCrudAction" %>
 <%@ page import="java.io.Writer" %>
 <%@ page import="com.manydesigns.elements.ElementsThreadLocals" %>
+<%@ page import="java.io.UnsupportedEncodingException" %>
 <%@ page language="java" %>
 <jsp:useBean id="actionBean" scope="request" type="com.manydesigns.portofino.pageactions.crud.AbstractCrudAction"/>
 <c:set var="pageId" value="${actionBean.pageInstance.page.id}" />
@@ -43,6 +45,21 @@
         }
 
         XhtmlBuffer buf = new XhtmlBuffer(out);
+
+		//hongliangpan add
+        buf.openElement("li");
+        buf.addAttribute("class", "disabled");
+        buf.openElement("a");
+        String pages="共"+totalSearchRecords+"行,"+(lastPage+1)+"页,"+rowsPerPage+"行/页";
+        buf.writeNoHtmlEscape(pages);
+        /*try {
+            buf.writeNoHtmlEscape(new String(pages.getBytes("iso-8859-1"),"UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            buf.writeNoHtmlEscape(""+totalSearchRecords+"Rows,"+(lastPage+1)+"Pages,"+rowsPerPage+"rows/page");
+        }*/
+        buf.closeElement("a");
+        buf.closeElement("li");
 
         //First
         buf.openElement("li");

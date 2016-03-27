@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="many_dict">
+    <annotations/>
+    <columns>
+        <column columnName="c_id" columnType="INT" length="10" jdbcType="4" autoincrement="true" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_type_id" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_name" columnType="VARCHAR" length="40" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_value" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_desc" columnType="VARCHAR" length="40" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_order" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_json" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag1" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag2" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys/>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="c_id"/>
+    </primaryKey>
+    <selectionProviders>
+        <query name="dict_type" toDatabase="point" hql="" sql="SELECT c_id ,c_name FROM many_dict_type">
+            <references>
+                <reference fromColumn="c_type_id"/>
+            </references>
+        </query>
+    </selectionProviders>
+</table>

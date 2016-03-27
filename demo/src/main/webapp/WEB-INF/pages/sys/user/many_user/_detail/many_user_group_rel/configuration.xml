@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration database="point" query="from many_user_group_rel where c_user_id = %{#many_user.c_id} order by id desc" name="many_user_group_rel" searchTitle="Search 用户所属共组" createTitle="Create 用户所属共组" readTitle="用户所属共组" editTitle="Edit 用户所属共组" variable="many_user_group_rel" largeResultSet="false" rowsPerPage="10" columns="1">
+    <properties>
+        <property enabled="true" name="c_group_id" label="工作组ID" insertable="true" updatable="false" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_user_id" label="用户ID" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_config" label="扩展信息" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_create_user" label="创建用户" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_create_time" label="创建时间" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_user" label="修改用户" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_time" label="修改时间" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+    </properties>
+    <selectionProviders>
+        <selectionProvider enabled="true" fk="fk_sgu_user_id" displayMode="DROPDOWN" searchDisplayMode="DROPDOWN" createNewValueText=""/>
+        <selectionProvider enabled="true" selectionProvider="group_name" displayMode="DROPDOWN" searchDisplayMode="DROPDOWN" createNewValueText=""/>
+    </selectionProviders>
+</configuration>

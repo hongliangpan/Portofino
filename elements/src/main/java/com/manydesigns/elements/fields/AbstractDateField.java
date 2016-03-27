@@ -166,9 +166,10 @@ public abstract class AbstractDateField<T> extends AbstractTextField<T> {
 
         xb.openElement("span");
         xb.addAttribute("class", "help-block");
-        xb.write("(");
-        xb.write(datePattern);
-        xb.write(") ");
+        // hongliangpan remove this pattern 日期类型不显示 (yyyy-MM-dd)
+//        xb.write("(");
+//        xb.write(datePattern);
+//        xb.write(") ");
         xb.closeElement("span");
 
         String js = MessageFormat.format(

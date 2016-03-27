@@ -23,15 +23,26 @@ package com.manydesigns.portofino.model.database;
 import com.manydesigns.elements.annotations.Required;
 import com.manydesigns.elements.util.ReflectionUtil;
 import com.manydesigns.portofino.database.Type;
-import com.manydesigns.portofino.model.*;
+import com.manydesigns.portofino.model.Annotated;
+import com.manydesigns.portofino.model.Annotation;
+import com.manydesigns.portofino.model.Model;
+import com.manydesigns.portofino.model.ModelObject;
+import com.manydesigns.portofino.model.ModelObjectVisitor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
 
 /*
 * @author Paolo Predonzani     - paolo.predonzani@manydesigns.com
@@ -40,8 +51,10 @@ import java.util.List;
 * @author Alessio Stalla       - alessio.stalla@manydesigns.com
 */
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder = {"columnName", "columnType", "length", "scale", "jdbcType" ,"autoincrement","nullable","javaType","propertyName","annotations"})
+@XmlType(propOrder = {"columnName", "columnType", "length", "scale", "jdbcType", "autoincrement", "nullable",
+                      "javaType", "propertyName", "annotations"})
 public class Column implements ModelObject, Annotated {
+
     public static final String copyright =
             "Copyright (c) 2005-2015, ManyDesigns srl";
 
@@ -52,11 +65,12 @@ public class Column implements ModelObject, Annotated {
     protected Table table;
     protected String columnName;
     protected int jdbcType;
-    protected String  columnType;
+    protected String columnType;
     protected boolean nullable;
     protected boolean autoincrement;
     protected Integer length;
     protected Integer scale;
+
 
     //**************************************************************************
     // Fields (logical)
@@ -65,7 +79,6 @@ public class Column implements ModelObject, Annotated {
     protected String javaType;
     protected String propertyName;
     protected final List<Annotation> annotations;
-
 
     //**************************************************************************
     // Fields for wire-up
@@ -94,7 +107,7 @@ public class Column implements ModelObject, Annotated {
 
     public String getQualifiedName() {
         return MessageFormat.format("{0}.{1}",
-                table.getQualifiedName(), columnName);
+                                    table.getQualifiedName(), columnName);
     }
 
     public void afterUnmarshal(Unmarshaller u, Object parent) {
@@ -118,7 +131,7 @@ public class Column implements ModelObject, Annotated {
             actualPropertyName = propertyName; //AS do not normalize (can be mixed-case Java properties)
         }
 
-        if(javaType != null) {
+        if (javaType != null) {
             actualJavaType = ReflectionUtil.loadClass(javaType);
             if (actualJavaType == null) {
                 logger.warn("Cannot load column {} of java type: {}", getQualifiedName(), javaType);
@@ -126,17 +139,19 @@ public class Column implements ModelObject, Annotated {
         } else {
             actualJavaType = Type.getDefaultJavaType(jdbcType, length, scale);
             if (actualJavaType == null) {
-                logger.error("Cannot determine default Java type for table: {}, column: {}, jdbc type: {}, type name: {}. Skipping column.",
+                logger.error(
+                        "Cannot determine default Java type for table: {}, column: {}, jdbc type: {}, type name: {}. Skipping column.",
                         new Object[]{table.getTableName(),
-                                getColumnName(),
-                                jdbcType,
-                                javaType
+                                     getColumnName(),
+                                     jdbcType,
+                                     javaType
                         });
             }
         }
     }
 
-    public void link(Model model) {}
+    public void link(Model model) {
+    }
 
     public void visitChildren(ModelObjectVisitor visitor) {
         for (Annotation annotation : annotations) {
@@ -264,22 +279,22 @@ public class Column implements ModelObject, Annotated {
         this.propertyName = propertyName;
     }
 
-    @XmlElementWrapper(name="annotations")
+    @XmlElementWrapper(name = "annotations")
     @XmlElement(name = "annotation",
             type = Annotation.class)
     public List<Annotation> getAnnotations() {
         return annotations;
     }
 
-        
+
     @Override
     public String toString() {
         return MessageFormat.format("column {0} {1}({2},{3}){4}",
-                getQualifiedName(),
-                columnType,
-                Integer.toString(length),
-                Integer.toString(scale),
-                nullable ? "" : " NOT NULL");
+                                    getQualifiedName(),
+                                    columnType,
+                                    Integer.toString(length),
+                                    Integer.toString(scale),
+                                    nullable ? "" : " NOT NULL");
     }
 
     //**************************************************************************
@@ -291,10 +306,10 @@ public class Column implements ModelObject, Annotated {
                                               String tableName,
                                               String columnName) {
         return MessageFormat.format("{0}.{1}.{2}.{3}",
-                databaseName,
-                schemaName,
-                tableName,
-                columnName);
+                                    databaseName,
+                                    schemaName,
+                                    tableName,
+                                    columnName);
     }
 
     public Annotation findModelAnnotationByType(String annotationType) {
@@ -304,5 +319,24 @@ public class Column implements ModelObject, Annotated {
             }
         }
         return null;
+    }
+
+    private String remark;
+    protected String memo;
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

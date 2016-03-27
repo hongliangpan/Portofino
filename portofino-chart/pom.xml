@@ -31,7 +31,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>jfree</groupId>
+            <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>${jfreechart.version}</version>
             <scope>compile</scope>
@@ -42,6 +42,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <!-- To avoid Groovy compilation error in IDEA -->
         <dependency>
             <groupId>org.slf4j</groupId>

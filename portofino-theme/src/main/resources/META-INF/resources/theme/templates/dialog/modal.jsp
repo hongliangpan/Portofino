@@ -38,8 +38,7 @@
                     <hr />
                     <jsp:useBean id="portofinoConfiguration" scope="application"
                                  type="org.apache.commons.configuration.Configuration"/>
-                    Powered by <a href="http://portofino.manydesigns.com/">Portofino</a>
-                    <c:out value="<%= ModuleRegistry.getPortofinoVersion() %>"/>
+                    技术支持 <a href="http://ysg.glodon.com/">云施工</a>
                 </stripes:layout-component>
             </div>
         </div>

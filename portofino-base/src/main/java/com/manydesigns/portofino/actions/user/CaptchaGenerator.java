@@ -81,7 +81,7 @@ public class CaptchaGenerator extends Cage {
     /**
      * Minimum length of token.
      */
-    protected static final int TOKEN_LEN_MIN = 6;
+    protected static final int TOKEN_LEN_MIN = 4;
 
     /**
      * Maximum length of token is {@value #TOKEN_LEN_MIN} +

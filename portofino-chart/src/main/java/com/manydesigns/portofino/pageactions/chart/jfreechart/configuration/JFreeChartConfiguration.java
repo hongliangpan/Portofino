@@ -29,6 +29,7 @@ import com.manydesigns.portofino.model.database.Database;
 import com.manydesigns.portofino.model.database.DatabaseLogic;
 import com.manydesigns.portofino.modules.DatabaseModule;
 import com.manydesigns.portofino.persistence.Persistence;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +56,10 @@ public class JFreeChartConfiguration implements PageActionConfiguration, ChartDe
     protected String type;
     protected String legend;
     protected String database;
+    // hongliangpan add
+    protected String queryOriginal;
     protected String query;
+
     protected String urlExpression;
     protected String xAxisName;
     protected String yAxisName;
@@ -202,6 +206,10 @@ public class JFreeChartConfiguration implements PageActionConfiguration, ChartDe
     }
 
     public void setQuery(String query) {
+		// hongliangpan add
+		if (StringUtils.isBlank(queryOriginal)) {
+			queryOriginal = query;
+		}
         this.query = query;
     }
 
@@ -255,5 +263,14 @@ public class JFreeChartConfiguration implements PageActionConfiguration, ChartDe
 
     public Orientation getActualOrientation() {
         return actualOrientation;
+    }
+	/**hongliangpan add
+	 * @return queryOriginal - {return content description}
+	 */
+	public String getQueryOriginal() {
+		return queryOriginal;
+	}
+    public static String getFont(){
+        return "宋体";
     }
 }

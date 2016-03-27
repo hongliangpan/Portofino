@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration database="point" query="from many_dept" name="many_dept" searchTitle="Search 部门" createTitle="Create 部门" readTitle="部门" editTitle="Edit 部门" variable="many_dept" largeResultSet="false" rowsPerPage="10" columns="1">
+    <properties>
+        <property enabled="false" name="c_id" label="ID" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_code" label="编号" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_name" label="名称" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_parent_id" label="上级部门" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_desc" label="备注" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_path" label="树级路径" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_level" label="树层级" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_sort_id" label="顺序" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_config" label="扩展信息" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_create_user" label="创建用户" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_create_time" label="创建时间" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_user" label="修改用户" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_modify_time" label="修改时间" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag1" label="备用字段" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag2" label="备用字段" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag3" label="备用字段" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag4" label="备用字段" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_full_path_name" label="全路径名称" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+    </properties>
+    <selectionProviders>
+        <selectionProvider createNewValueText="" displayMode="DROPDOWN" enabled="true" searchDisplayMode="DROPDOWN" selectionProvider="dept_parent_id"/>
+    </selectionProviders>
+</configuration>

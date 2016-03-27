@@ -149,8 +149,26 @@ public abstract class AbstractBlobField extends AbstractField<Blob> implements M
         xb.closeElement("p");
     }
 
-    public void writeBlobFilenameAndSize(XhtmlBuffer xb) {
-        if (href != null) {
+ //hongliangpan add
+    public boolean isImg(String fileName) {
+        if (StringUtils.isBlank(fileName)) {
+            return false;
+        }
+        //TODO
+        return fileName.endsWith(".png") || fileName.endsWith(".jpg");
+    }    public void writeBlobFilenameAndSize(XhtmlBuffer xb) {
+//hongliangpan add
+        // <img src="http://localhost:9090/ad_config/3?downloadBlob=&propertyName=c_img"
+        // width="50px" height="50px">
+        // Èç¹ûÊÇÍ¼Æ¬
+        if (href != null && isImg(blob.getFilename()) && blob.getSize() < 1000000) {
+            xb.openElement("img");
+            xb.addAttribute("src", href);
+            xb.addAttribute("width", "110px");
+            xb.addAttribute("height", "140px");
+            xb.closeElement("img");
+            xb.writeBr();
+        }        if (href != null) {
             xb.openElement("a");
             xb.addAttribute("href", href);
         }

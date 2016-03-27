@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="通用字典" description="通用字典" navigationRoot="INHERIT" id="8wuq8kwhtmpk0kix54l2mpsul">
+    <layout template="default">
+        <childPages/>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions>
+        <group level="EDIT" name="管理员">
+            <permission>crud-create</permission>
+            <permission>crud-edit</permission>
+            <permission>crud-delete</permission>
+        </group>
+    </permissions>
+</page>

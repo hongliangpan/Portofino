@@ -94,6 +94,8 @@ public class JFreeChartInstance implements XhtmlFragment {
             xb.addAttribute("title", tooltipText);
             xb.addAttribute("alt", tooltipText);
             xb.addAttribute("href", urltext);
+			//hongliangpan add
+			xb.addAttribute("target", "_BLANK");
             xb.closeElement("area");
         }
         xb.closeElement("map");

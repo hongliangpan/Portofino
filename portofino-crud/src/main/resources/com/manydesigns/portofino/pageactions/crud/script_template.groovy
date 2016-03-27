@@ -1,28 +1,11 @@
-import javax.servlet.*
-
-import com.manydesigns.elements.forms.*
-import com.manydesigns.elements.messages.*
-import com.manydesigns.elements.reflection.*
-import com.manydesigns.portofino.*
-import com.manydesigns.portofino.buttons.*
-import com.manydesigns.portofino.buttons.annotations.*
-import com.manydesigns.portofino.dispatcher.*
-import com.manydesigns.portofino.model.database.*
-import com.manydesigns.portofino.pageactions.*
 import com.manydesigns.portofino.security.*
-import com.manydesigns.portofino.shiro.*
-
 import net.sourceforge.stripes.action.*
-import org.apache.shiro.*
-import org.hibernate.*
-import org.hibernate.criterion.*
-
 import com.manydesigns.portofino.pageactions.crud.*
 
 @SupportsPermissions([ CrudAction.PERMISSION_CREATE, CrudAction.PERMISSION_EDIT, CrudAction.PERMISSION_DELETE ])
 @RequiresPermissions(level = AccessLevel.VIEW)
-class MyCrudAction extends CrudAction {
-
+class MyCrudAction extends CrudAction4AppBase {
+    //hongliangpan modity to CrudAction4Appbase
     //Automatically generated on %{new java.util.Date()} by ManyDesigns Portofino
     //Write your code here
 

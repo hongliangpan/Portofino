@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="many_group_region_rel">
+    <annotations/>
+    <columns>
+        <column columnName="c_group_id" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_region_id" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_config" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_time" columnType="DATETIME" length="19" jdbcType="93" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_time" columnType="TIMESTAMP" length="19" jdbcType="93" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys>
+        <foreignKey toTable="many_group" toSchema="demo" onUpdate="importedKeyNoAction" onDelete="importedKeyNoAction" name="fk_sre_group_id" toDatabase="point" hql="from many_group">
+            <references>
+                <reference fromColumn="c_group_id" toColumn="c_id"/>
+            </references>
+        </foreignKey>
+    </foreignKeys>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="c_group_id"/>
+        <column columnName="c_region_id">
+            <incrementGenerator/>
+        </column>
+    </primaryKey>
+    <selectionProviders/>
+</table>

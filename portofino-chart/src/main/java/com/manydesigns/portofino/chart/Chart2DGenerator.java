@@ -21,12 +21,18 @@
 package com.manydesigns.portofino.chart;
 
 import com.manydesigns.elements.ElementsThreadLocals;
+import com.manydesigns.portofino.pageactions.chart.jfreechart.configuration.JFreeChartConfiguration;
 import com.manydesigns.portofino.persistence.Persistence;
 import com.manydesigns.portofino.persistence.QueryUtils;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.*;
+import org.jfree.chart.axis.Axis;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPosition;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.axis.CategoryLabelWidthType;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DrawingSupplier;
 import org.jfree.chart.plot.PlotOrientation;
@@ -40,7 +46,12 @@ import org.jfree.chart.urls.CategoryURLGenerator;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.text.TextBlockAnchor;
-import org.jfree.ui.*;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.TextAnchor;
+import org.jfree.ui.VerticalAlignment;
 
 import java.awt.*;
 import java.util.Locale;
@@ -58,11 +69,12 @@ public abstract class Chart2DGenerator extends AbstractChartGenerator {
     //**************************************************************************
     // Other objects
     //**************************************************************************
-    private final Font titleFont = new Font("SansSerif", Font.BOLD, 12);
-    private final Font axisFont = new Font("SansSerif", Font.PLAIN, 12);
-    private final Font legendFont = new Font("SansSerif", Font.BOLD, 10);
-    private final Font legendItemFont = new Font("SansSerif", Font.PLAIN, 10);
-    private final Color transparentColor = new Color(0, true);
+    //hongliangpan add modify to protected
+    protected final Font titleFont = new Font(JFreeChartConfiguration.getFont(), Font.BOLD, 12);
+    protected final Font axisFont = new Font(JFreeChartConfiguration.getFont(), Font.PLAIN, 12);
+    protected final Font legendFont = new Font(JFreeChartConfiguration.getFont(), Font.BOLD, 10);
+    protected final Font legendItemFont = new Font(JFreeChartConfiguration.getFont(), Font.PLAIN, 10);
+    protected final Color transparentColor = new Color(0, true);
 
     public JFreeChart generate(ChartDefinition chartDefinition, Persistence persistence, Locale locale) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -144,7 +156,8 @@ public abstract class Chart2DGenerator extends AbstractChartGenerator {
         categoryAxis.setAxisLinePaint(Color.BLACK);
         categoryAxis.setLabelFont(axisFont);
         categoryAxis.setAxisLineVisible(true);
-
+        categoryAxis.setTickLabelFont(new Font("宋体", Font.BOLD, 10));//设置x轴坐标上的字体
+        //categoryAxis.setLabelFont(new Font("宋体",Font.BOLD,10));//设置x轴上的标题的字体
         // impostiamo la rotazione dell'etichetta
         if (plot.getOrientation() == PlotOrientation.VERTICAL) {
             CategoryLabelPosition pos =
@@ -174,11 +187,14 @@ public abstract class Chart2DGenerator extends AbstractChartGenerator {
         Axis rangeAxis = plot.getRangeAxis();
         rangeAxis.setAxisLinePaint(Color.BLACK);
         rangeAxis.setLabelFont(axisFont);
-
+        //hongliangpan add
+        rangeAxis.setTickLabelFont(new Font("宋体", Font.BOLD, 10));//设置y轴坐标上的字体
+        rangeAxis.setLabelFont(new Font("宋体",Font.BOLD,10));//设置y轴坐标上的标题的字体
         DrawingSupplier supplier =
                 new DesaturatedDrawingSupplier(plot.getDrawingSupplier());
         plot.setDrawingSupplier(supplier);
-
+		// 设置柱的透明度 hongliangpan add
+		plot.setForegroundAlpha(1.0f);
         // impostiamo il titolo della legenda
         String legendString = chartDefinition.getLegend();
         Title subtitle = new TextTitle(legendString, legendFont, Color.BLACK,

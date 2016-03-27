@@ -25,6 +25,8 @@ import com.manydesigns.mail.queue.LockingMailQueue;
 import com.manydesigns.mail.queue.MailQueue;
 import com.manydesigns.mail.sender.DefaultMailSender;
 import com.manydesigns.mail.sender.MailSender;
+import com.manydesigns.mail.sender.MailSenderRunnable;
+import com.manydesigns.mail.utils.MailUtils;
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,6 +82,9 @@ public class MailQueueSetup {
                 //TODO rendere configurabile
                 mailQueue = new LockingMailQueue(new FileSystemMailQueue(new File(mailQueueLocation)));
                 mailQueue.setKeepSent(keepSent);
+                // hongliangpan add
+                MailUtils.setMailQueue(mailQueue);
+
                 mailSender = new DefaultMailSender(mailQueue);
                 mailSender.setServer(mailHost);
                 mailSender.setLogin(login);
@@ -89,6 +94,10 @@ public class MailQueueSetup {
                 mailSender.setTls(tls);
 
                 logger.info("Mail sender started");
+                //hongliangpan add
+                if (!mailConfiguration.getBoolean(MailProperties.MAIL_QUARTZ_ENABLED, false)) {
+                    new Thread(new MailSenderRunnable(mailSender)).start();
+                }
             }
         } else {
             logger.info("Mail queue is not enabled");

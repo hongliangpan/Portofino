@@ -89,8 +89,9 @@ public class TableForm implements Element {
 
     public void toXhtml(@NotNull XhtmlBuffer xb) {
         xb.openElement("table");
+        // yujun add table-bordered hongliangpan
         xb.addAttribute("class",
-                "table mde-table-form" +
+                "table table-bordered mde-table-form" +
                 (condensed ? " table-condensed" : "") +
                 (striped ? " table-striped" : ""));
         if (caption != null) {

@@ -8,8 +8,9 @@
 <jsp:useBean id="actionBean" scope="request" type="com.manydesigns.portofino.actions.admin.appwizard.ApplicationWizard"/>
 <div class="wizard-header">
     <ul>
+        <%--hongliangpan add color:--%>
     <c:forEach items="${actionBean.steps}" var="step" varStatus="status">
-        <li style="z-index: ${20 - status.index}"
+        <li style="z-index: ${20 - status.index} ;color: blue"
             class="${status.first ? 'first' : ''}
                    ${status.index < actionBean.currentStepIndex ? 'before' : ''}
                    ${status.index eq actionBean.currentStepIndex ? 'active' : ''}">

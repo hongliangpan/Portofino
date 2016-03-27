@@ -228,14 +228,14 @@ public class Util {
         return xb.toString();
     }
 
-// confronto fra due strighe che tiene conto dei numeri.
+    // confronto fra due strighe che tiene conto dei numeri.
     // cioe' "pippo1" < "pippo2" < "pippo10"
     // il confronto e' case insensitive
     public static int compare(
             String one,
             String two) {
 
-        if(one == null && two == null) {
+        if (one == null && two == null) {
             return 0;
         }
         if (two == null)
@@ -291,11 +291,11 @@ public class Util {
         return copyOfRange(original, from, to, (Class<T[]>) original.getClass());
     }
 
-    public static <T,U> T[] copyOfRange(U[] original, int from, int to, Class<? extends T[]> newType) {
+    public static <T, U> T[] copyOfRange(U[] original, int from, int to, Class<? extends T[]> newType) {
         int newLength = to - from;
         if (newLength < 0)
             throw new IllegalArgumentException(from + " > " + to);
-        T[] copy = ((Object)newType == (Object)Object[].class)
+        T[] copy = ((Object) newType == (Object) Object[].class)
                 ? (T[]) new Object[newLength]
                 : (T[]) Array.newInstance(newType.getComponentType(), newLength);
         System.arraycopy(original, from, copy, 0,
@@ -312,7 +312,7 @@ public class Util {
             index = m.end();
             if (g.equals("\u2013") || g.equals("\u2014")) {
                 dest.append('-');
-            } else if (g.equals("\u2018") || g.equals("\u2019")|| g.equals("\u0092")) {
+            } else if (g.equals("\u2018") || g.equals("\u2019") || g.equals("\u0092")) {
                 dest.append('\'');
             } else if (g.equals("\u201C") || g.equals("\u201D")) {
                 dest.append('"');
@@ -337,19 +337,19 @@ public class Util {
             String g = m.group();
             dest.append(source.substring(index, m.end() - 1));
             index = m.end();
-            if(g.equals("\u2013")) {
+            if (g.equals("\u2013")) {
                 dest.append("&ndash;");
-            } else if(g.equals("\u2014")) {
+            } else if (g.equals("\u2014")) {
                 dest.append("&mdash;");
-            } else if(g.equals("\u2018")) {
+            } else if (g.equals("\u2018")) {
                 dest.append("&lsquo;");
-            } else if(g.equals("\u2019")) {
+            } else if (g.equals("\u2019")) {
                 dest.append("&rsquo;");
-            } else if(g.equals("\u0092")) {
+            } else if (g.equals("\u0092")) {
                 dest.append("'");
             } else if (g.equals("\u201C")) {
                 dest.append("&ldquo;");
-            } else if(g.equals("\u201D")) {
+            } else if (g.equals("\u201D")) {
                 dest.append("&rdquo;");
             } else if (g.equals("\u2022")) {
                 dest.append("&bull;");
@@ -401,8 +401,15 @@ public class Util {
         }
     }
 
+    // hongliangpan modify
+    private static final String URL_PATTERN_SIMPLE = "(\\w+(-\\w+)*)(\\.(\\w+(-\\w+)*))*(\\?\\S*)?$";
+    private static final String URL_PATTERN = "(http://|https://|ftp://|www\\.)\\S+";
+
     public final static Pattern linkPattern =
-            Pattern.compile("(http://|https://|ftp://|www\\.)\\S+", Pattern.CASE_INSENSITIVE);
+            Pattern.compile(URL_PATTERN, Pattern.CASE_INSENSITIVE);
+
+    public final static Pattern linkPatternSimple =
+            Pattern.compile(URL_PATTERN_SIMPLE, Pattern.CASE_INSENSITIVE);
     public final static Pattern emailPattern =
             Pattern.compile("[a-z0-9\\-_]++(\\.[a-z0-9\\-_]++)*@[a-z0-9\\-_]++" +
                     "(\\.[a-z0-9\\-_]++)++", Pattern.CASE_INSENSITIVE);
@@ -419,6 +426,7 @@ public class Util {
         StringBuffer sb = new StringBuffer();
         while (linkMatcher.find()) {
             String text = shortenEscaped(linkMatcher.group(0), 22);
+            //hongliangpan add modify url链接地址
             if (linkMatcher.group(1).equalsIgnoreCase("www.")) {
                 linkMatcher.appendReplacement(sb, "<a href=\"http://" +
                         linkMatcher.group(0) + "\">" + text + "</a>");
@@ -427,6 +435,17 @@ public class Util {
                         "\">" + text + "</a>");
             }
             linkTrovato = true;
+        }
+        //hongliangpan add
+        if (!linkTrovato) {
+            linkMatcher = linkPatternSimple.matcher(str);
+            while (linkMatcher.find()) {
+                String text = shortenEscaped(linkMatcher.group(0), 22);
+                //hongliangpan add modify
+                linkMatcher.appendReplacement(sb, "<a href=\"http://" +
+                        linkMatcher.group(0) + "\">" + text + "</a>");
+                linkTrovato = true;
+            }
         }
         if (linkTrovato) {
             linkMatcher.appendTail(sb);
@@ -473,7 +492,7 @@ public class Util {
     }
 
     public static DateTime parseDateTime(DateTimeFormatter dateTimeFormatter, String input, boolean withTime) {
-        if(withTime) {
+        if (withTime) {
             return dateTimeFormatter.parseDateTime(input);
         } else {
             LocalDate localDate = dateTimeFormatter.parseLocalDate(input);

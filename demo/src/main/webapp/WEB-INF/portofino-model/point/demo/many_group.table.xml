@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="many_group">
+    <annotations/>
+    <columns>
+        <column columnName="c_id" columnType="INT" length="10" jdbcType="4" autoincrement="true" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_name" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_display_name" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_region_level" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_desc" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_sort_id" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_role" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_config" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_create_time" columnType="DATETIME" length="19" jdbcType="93" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_user" columnType="VARCHAR" length="20" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_time" columnType="TIMESTAMP" length="19" jdbcType="93" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_tag1" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag2" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag3" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag4" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys/>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="c_id"/>
+    </primaryKey>
+    <selectionProviders>
+        <query name="group_role" toDatabase="point" hql="" sql="SELECT 'edit.field.view','只能查看' FROM DUAL&#xD;&#xA;UNION&#xD;&#xA;SELECT 'edit.field.part','编辑部分字段' FROM DUAL&#xD;&#xA;UNION&#xD;&#xA;SELECT 'edit.field.all','编辑全部字段'  FROM DUAL">
+            <references>
+                <reference fromColumn="c_role"/>
+            </references>
+        </query>
+        <query name="group_region_level" toDatabase="point" hql="" sql="SELECT '0','全部' FROM DUAL&#xD;&#xA;UNION&#xD;&#xA;SELECT '1','片区' FROM DUAL&#xD;&#xA;UNION&#xD;&#xA;SELECT '2','大区'  FROM DUAL&#xD;&#xA;UNION&#xD;&#xA;SELECT '3','省区'  FROM DUAL">
+            <references>
+                <reference fromColumn="c_region_level"/>
+            </references>
+        </query>
+    </selectionProviders>
+</table>

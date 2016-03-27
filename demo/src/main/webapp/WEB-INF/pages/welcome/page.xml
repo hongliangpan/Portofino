@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="主页" description="" navigationRoot="INHERIT" id="zpAUFstfgEUSzsEX9HoO">
+    <layout template="default">
+        <childPages/>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions/>
+</page>

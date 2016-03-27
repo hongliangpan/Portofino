@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration database="point" query="from many_dict order by id desc" name="many_dict" searchTitle="Search 通用字典" createTitle="Create 通用字典" readTitle="通用字典" editTitle="Edit 通用字典" variable="many_dict" largeResultSet="false" rowsPerPage="10" columns="1">
+    <properties>
+        <property enabled="false" name="c_id" label="ID" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_type_id" label="类型" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_name" label="名称" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_value" label="值" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_desc" label="描述" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="c_order" label="排序号" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_json" label="json格式扩展信息" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag1" label="冗余字段1" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="false" name="c_tag2" label="冗余字段2" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+    </properties>
+    <selectionProviders/>
+</configuration>

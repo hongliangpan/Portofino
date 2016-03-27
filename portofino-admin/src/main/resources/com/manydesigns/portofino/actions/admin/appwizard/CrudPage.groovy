@@ -21,7 +21,7 @@ import com.manydesigns.portofino.pageactions.crud.*
 
 @SupportsPermissions([ CrudAction.PERMISSION_CREATE, CrudAction.PERMISSION_EDIT, CrudAction.PERMISSION_DELETE ])
 @RequiresPermissions(level = AccessLevel.VIEW)
-class CrudPage extends CrudAction {
+class CrudPage extends CrudAction4AppBase {
 
     String linkToParentProperty = "$linkToParentProperty";
     String parentName = "$parentName";

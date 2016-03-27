@@ -33,7 +33,9 @@ import com.manydesigns.portofino.actions.safemode.SafeModeAction;
 import com.manydesigns.portofino.di.Injections;
 import com.manydesigns.portofino.pageactions.PageActionLogic;
 import com.manydesigns.portofino.pages.ChildPage;
+import com.manydesigns.portofino.pages.Group;
 import com.manydesigns.portofino.pages.Page;
+import com.manydesigns.portofino.pages.Permissions;
 import com.manydesigns.portofino.scripting.ScriptingUtil;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.io.IOUtils;
@@ -168,6 +170,57 @@ public class DispatcherLogic {
      * @throws Exception in case the save fails.
      */
     public static File savePage(File directory, Page page) throws Exception {
+		//hongliangpan add 页面的默认管理权限 所有页面，管理与有crud 编辑权限
+        if(page.getPermissions().getGroups().isEmpty()) {
+            Permissions permissions = new Permissions();
+            List<Group> groups = permissions.getGroups();
+            Group group = new Group();
+            group.setName("管理员");
+            group.setAccessLevel("EDIT");
+            group.getPermissions().add("crud-create");
+            group.getPermissions().add("crud-edit");
+            group.getPermissions().add("crud-delete");
+            groups.add(group);
+
+            Group administrators = new Group();
+            administrators.setName("administrators");
+            administrators.setAccessLevel("EDIT");
+            administrators.getPermissions().add("crud-create");
+            administrators.getPermissions().add("crud-edit");
+            administrators.getPermissions().add("crud-delete");
+            groups.add(group);
+
+            Group editor = new Group();
+            editor.setName("可以调整");
+            editor.setAccessLevel("EDIT");
+            editor.getPermissions().add("crud-create");
+            editor.getPermissions().add("crud-edit");
+            groups.add(group);
+
+            Group  view = new Group();
+            view.setName("只能看");
+            view.setAccessLevel("VIEW");
+            groups.add(view);
+
+
+            Group registered = new Group();
+            registered.setName("registered");
+            registered.setAccessLevel("VIEW");
+            groups.add(registered);
+
+
+            Group anonymous = new Group();
+            anonymous.setName("anonymous");
+            anonymous.setAccessLevel("NONE");
+            groups.add(registered);
+
+            Group all = new Group();
+            all.setName("all");
+            all.setAccessLevel("NONE");
+            groups.add(group);
+
+            page.setPermissions(permissions);
+        }
         File pageFile = getPageFile(directory);
         Marshaller marshaller = pagesJaxbContext.createMarshaller();
         marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

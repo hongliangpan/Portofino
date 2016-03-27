@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="积分系统" description="积分系统" navigationRoot="INHERIT" id="cey59h9hkw52twfsffj7r7m8v">
+    <layout template="default">
+        <childPages/>
+    </layout>
+    <detailLayout>
+        <childPages/>
+    </detailLayout>
+    <permissions>
+        <group level="EDIT" name="管理员">
+            <permission>crud-create</permission>
+            <permission>crud-edit</permission>
+            <permission>crud-delete</permission>
+        </group>
+    </permissions>
+</page>

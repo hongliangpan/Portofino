@@ -20,9 +20,12 @@
 
 package com.manydesigns.portofino.dispatcher;
 
+import com.google.api.client.json.Json;
 import com.manydesigns.elements.util.Util;
 import com.manydesigns.portofino.pages.NavigationRoot;
 import net.sourceforge.stripes.action.ActionBean;
+
+import java.util.Arrays;
 
 /**
  * A <em>Dispatch</em> is an object representing a path of page instances from the root of the application,
@@ -96,4 +99,8 @@ public class Dispatch {
         return getLastPageInstance().getActionClass();
     }
 
+    @Override
+    public String toString() {
+        return com.alibaba.fastjson.JSON.toJSONString(this);
+    }
 }

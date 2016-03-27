@@ -122,9 +122,14 @@ public class ManyToManyConfiguration implements PageActionConfiguration {
                             if(actualManyTable == null && actualSelectionProvider instanceof DatabaseSelectionProvider) {
                                 logger.debug("Trying to determine the many table from the selection provider query");
                                 String hql = ((DatabaseSelectionProvider) actualSelectionProvider).getHql();
+                                // hongliangpan add hql 没取到 用 sql
+                                if (StringUtils.isBlank(hql)) {
+                                    hql = ((DatabaseSelectionProvider) actualSelectionProvider).getSql();
+                                }
                                 if(hql != null) {
                                     actualManyTable = QueryUtils.getTableFromQueryString(actualManyDatabase, hql);
                                 }
+
                             }
                             if(actualManyTable == null) {
                                 logger.error("Invalid selection provider: only foreign keys or HQL selection providers that select a single entity are supported");

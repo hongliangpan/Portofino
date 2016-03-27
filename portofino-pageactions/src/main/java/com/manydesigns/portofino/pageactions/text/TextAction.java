@@ -187,7 +187,7 @@ public class TextAction extends AbstractPageAction {
     /**
      * Computes the name of the file used to store this page's content. The default implementation
      * returns "text.html".
-     * @see com.manydesigns.portofino.pageactions.text.TextAction#locateTextFile()
+     * @see TextAction#locateTextFile()
      * @return the name of the file.
      */
     protected String computeTextFileName() {

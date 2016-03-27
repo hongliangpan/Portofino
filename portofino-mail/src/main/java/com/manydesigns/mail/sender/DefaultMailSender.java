@@ -196,6 +196,11 @@ public class DefaultMailSender implements MailSender {
         email.setSmtpPort(port);
         email.setSubject(emailBean.getSubject());
         email.setFrom(emailBean.getFrom());
+		// hongliangpan add
+		if ("smtp.163.com".equals(server)) {
+			email.setFrom(login + "@163.com");
+			// email.setAuthenticator(new DefaultAuthenticator("test28797575", "1qa2ws3ed"));
+		}
 
         for(Recipient recipient : emailBean.getRecipients()) {
             switch (recipient.getType()) {

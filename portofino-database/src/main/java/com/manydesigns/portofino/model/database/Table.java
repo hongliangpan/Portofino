@@ -22,15 +22,27 @@ package com.manydesigns.portofino.model.database;
 
 import com.manydesigns.elements.annotations.Required;
 import com.manydesigns.elements.util.ReflectionUtil;
-import com.manydesigns.portofino.model.*;
+import com.manydesigns.portofino.model.Annotated;
+import com.manydesigns.portofino.model.Annotation;
+import com.manydesigns.portofino.model.Model;
+import com.manydesigns.portofino.model.ModelObject;
+import com.manydesigns.portofino.model.ModelObjectVisitor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /*
 * @author Paolo Predonzani     - paolo.predonzani@manydesigns.com
@@ -40,7 +52,7 @@ import java.util.List;
 */
 @XmlRootElement(name = "table")
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder = {"tableName", "entityName", "shortName", "javaClass","annotations","columns","foreignKeys","primaryKey","selectionProviders"})
+@XmlType(propOrder = {"tableName", "entityName", "shortName", "javaClass", "annotations", "columns", "foreignKeys", "primaryKey", "selectionProviders"})
 public class Table implements ModelObject, Annotated {
     public static final String copyright =
             "Copyright (c) 2005-2015, ManyDesigns srl";
@@ -63,6 +75,8 @@ public class Table implements ModelObject, Annotated {
     protected String shortName;
 
     protected PrimaryKey primaryKey;
+
+
 
     //**************************************************************************
     // Fields for wire-up
@@ -100,7 +114,7 @@ public class Table implements ModelObject, Annotated {
     //**************************************************************************
 
     public String getQualifiedName() {
-        if(schema.getQualifiedName() == null) {
+        if (schema.getQualifiedName() == null) {
             return tableName;
         }
         return MessageFormat.format("{0}.{1}",
@@ -120,7 +134,7 @@ public class Table implements ModelObject, Annotated {
     public void init(Model model) {
         assert schema != null;
         assert tableName != null;
-        
+
         // wire up javaClass
         actualJavaClass = ReflectionUtil.loadClass(javaClass);
 
@@ -135,7 +149,7 @@ public class Table implements ModelObject, Annotated {
 
         int i = 2;
         Database database = schema.getDatabase();
-        while(DatabaseLogic.findTableByEntityName(database, calculatedEntityName) != null) {
+        while (DatabaseLogic.findTableByEntityName(database, calculatedEntityName) != null) {
             logger.warn("Entity name {} already taken, generating a new one", calculatedEntityName);
             calculatedEntityName = baseEntityName + "_" + (i++);
         }
@@ -143,7 +157,8 @@ public class Table implements ModelObject, Annotated {
         actualEntityName = calculatedEntityName;
     }
 
-    public void link(Model model) {}
+    public void link(Model model) {
+    }
 
     public void visitChildren(ModelObjectVisitor visitor) {
         for (Column column : columns) {
@@ -164,7 +179,7 @@ public class Table implements ModelObject, Annotated {
             visitor.visit(annotation);
         }
 
-        for(ModelSelectionProvider selectionProvider : selectionProviders) {
+        for (ModelSelectionProvider selectionProvider : selectionProviders) {
             visitor.visit(selectionProvider);
         }
     }
@@ -211,7 +226,7 @@ public class Table implements ModelObject, Annotated {
         this.javaClass = javaClass;
     }
 
-    @XmlElementWrapper(name="columns")
+    @XmlElementWrapper(name = "columns")
     @XmlElement(name = "column",
             type = com.manydesigns.portofino.model.database.Column.class)
     public List<Column> getColumns() {
@@ -231,7 +246,7 @@ public class Table implements ModelObject, Annotated {
         return actualJavaClass;
     }
 
-    @XmlElementWrapper(name="foreignKeys")
+    @XmlElementWrapper(name = "foreignKeys")
     @XmlElement(name = "foreignKey",
             type = com.manydesigns.portofino.model.database.ForeignKey.class)
     public List<ForeignKey> getForeignKeys() {
@@ -255,15 +270,15 @@ public class Table implements ModelObject, Annotated {
         return oneToManyRelationships;
     }
 
-    @XmlElementWrapper(name="annotations")
+    @XmlElementWrapper(name = "annotations")
     @XmlElement(name = "annotation",
             type = Annotation.class)
     public List<Annotation> getAnnotations() {
         return annotations;
     }
 
-    @XmlElementWrapper(name="selectionProviders")
-    @XmlElement(name="query",type=DatabaseSelectionProvider.class)
+    @XmlElementWrapper(name = "selectionProviders")
+    @XmlElement(name = "query", type = DatabaseSelectionProvider.class)
     public List<ModelSelectionProvider> getSelectionProviders() {
         return selectionProviders;
     }
@@ -301,4 +316,21 @@ public class Table implements ModelObject, Annotated {
                 "{0}.{1}.{2}", databaseName, schemaName, tableName);
     }
 
+    private String remark;
+    protected String memo;
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 }

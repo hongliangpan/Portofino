@@ -5,6 +5,13 @@
 %><%@ taglib prefix="mde" uri="/manydesigns-elements"
 %><%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"
 %><%@ taglib tagdir="/WEB-INF/tags" prefix="portofino" %>
+<style>
+    /*hongliangpan add*/
+    .table {
+        border-collapse: collapse !important;
+        color: blue;
+    }
+</style>
 <stripes:layout-render name="/m/admin/admin-theme/admin-page.jsp">
     <jsp:useBean id="actionBean" scope="request"
                  type="com.manydesigns.portofino.actions.admin.appwizard.ApplicationWizard"/>

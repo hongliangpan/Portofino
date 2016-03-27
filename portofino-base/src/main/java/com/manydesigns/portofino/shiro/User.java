@@ -20,19 +20,20 @@
 
 package com.manydesigns.portofino.shiro;
 
+import com.manydesigns.elements.annotations.Label;
 import com.manydesigns.elements.annotations.Password;
 import com.manydesigns.elements.annotations.Required;
 
 public class User {
     public static final String copyright =
             "Copyright (c) 2005-2015, ManyDesigns srl";
-
+    @Label("账号")
     @Required
     public String username;
-
+    @Label("电子邮箱")
     @Required
     public String email;
-
+    @Label("密码")
     @Required
     @Password(confirmationRequired = true)
     public String password;

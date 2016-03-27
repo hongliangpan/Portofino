@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="sys_product">
+    <annotations/>
+    <columns>
+        <column columnName="c_id" columnType="INT" length="10" jdbcType="4" autoincrement="true" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_code" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_name" columnType="VARCHAR" length="200" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_desc" columnType="VARCHAR" length="2000" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_is_deleted" columnType="BIT" jdbcType="-7" autoincrement="false" nullable="true" javaType="java.lang.Boolean">
+            <annotations/>
+        </column>
+        <column columnName="c_pm" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_psm" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_user" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_time" columnType="TIMESTAMP" length="19" jdbcType="93" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_json" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag1" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag2" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag3" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag4" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys/>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="c_id"/>
+    </primaryKey>
+    <selectionProviders/>
+</table>

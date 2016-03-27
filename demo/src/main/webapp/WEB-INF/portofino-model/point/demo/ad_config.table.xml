@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table tableName="ad_config">
+    <annotations/>
+    <columns>
+        <column columnName="c_id" columnType="INT" length="10" jdbcType="4" autoincrement="true" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_product" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations/>
+        </column>
+        <column columnName="c_name" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_img" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations>
+                <annotation type="com.manydesigns.elements.annotations.MaxLength">
+                    <value>100</value>
+                </annotation>
+                <annotation type="com.manydesigns.elements.annotations.FileBlob"/>
+            </annotations>
+        </column>
+        <column columnName="c_url" columnType="VARCHAR" length="1000" jdbcType="12" autoincrement="false" nullable="false">
+            <annotations>
+                <annotation type="com.manydesigns.elements.annotations.MaxLength">
+                    <value>1000</value>
+                </annotation>
+                <annotation type="com.manydesigns.elements.annotations.HighlightLinks">
+                    <value>true</value>
+                </annotation>
+            </annotations>
+        </column>
+        <column columnName="c_province" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_city" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_title" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_img2" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_img_thumbnail" columnType="VARCHAR" length="100" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_source" columnType="VARCHAR" length="1000" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_desc" columnType="VARCHAR" length="1000" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_order" columnType="SMALLINT" length="5" jdbcType="5" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_start_time" columnType="DATE" length="10" jdbcType="91" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_end_time" columnType="DATE" length="10" jdbcType="91" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_time" columnType="DATE" length="10" jdbcType="91" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_modify_user" columnType="INT" length="10" jdbcType="4" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_is_used" columnType="BIT" jdbcType="-7" autoincrement="false" nullable="true" javaType="java.lang.Boolean">
+            <annotations/>
+        </column>
+        <column columnName="c_json" columnType="VARCHAR" length="500" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag1" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag2" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag3" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+        <column columnName="c_tag4" columnType="VARCHAR" length="32" jdbcType="12" autoincrement="false" nullable="true">
+            <annotations/>
+        </column>
+    </columns>
+    <foreignKeys/>
+    <primaryKey primaryKeyName="PRIMARY">
+        <column columnName="c_id"/>
+    </primaryKey>
+    <selectionProviders>
+        <query name="dict_province_city" toDatabase="point" hql="" sql="select split(c_path_name,'/',1) AS c_province,split(c_path_name,'/',1) AS c_province,c_name AS c_city,c_name AS c_city from sys_region WHERE &#xD;&#xA;c_level=2 OR c_id NOT in(select c_parent_id  from sys_region WHERE c_level=2) AND c_id !='86' ORDER BY c_id">
+            <references>
+                <reference fromColumn="c_province"/>
+                <reference fromColumn="c_city"/>
+            </references>
+        </query>
+        <query name="dict_product" toDatabase="point" hql="" sql="SELECT c_code,c_name FROM sys_product">
+            <references>
+                <reference fromColumn="c_product"/>
+            </references>
+        </query>
+    </selectionProviders>
+</table>

@@ -15,6 +15,10 @@
         <stripes:form action="${actionBean.context.actionPath}" method="post"
                       id="${(not empty actionBean.crudConfiguration.name) ? actionBean.crudConfiguration.name : null}"
                       enctype="multipart/form-data" class="form-horizontal edit bulk">
+			<!-- hongliangpan add -->					  
+			<div class="form-actions">
+                <portofino:buttons list="crud-bulk-edit" />
+            </div>
             <mde:write name="actionBean" property="form"/>
             <stripes:hidden name="selection"/>
             <input type="hidden" name="searchString" value="<c:out value="${actionBean.searchString}"/>"/>

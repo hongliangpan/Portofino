@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page title="字典管理" description="字典管理" navigationRoot="INHERIT" id="v6moqf2a3mancb9tge2k2t65x">
+    <layout template="main-with-tabs">
+        <childPages>
+            <childPage order="0" showInNavigation="true" name="many_dict_type" container="default"/>
+            <childPage order="0" showInNavigation="true" name="many_dict" container="default"/>
+            <childPage showInNavigation="true" name="sys_region"/>
+            <childPage showInNavigation="true" name="sys_product"/>
+        </childPages>
+    </layout>
+    <detailLayout template="default">
+        <childPages/>
+    </detailLayout>
+    <permissions/>
+</page>

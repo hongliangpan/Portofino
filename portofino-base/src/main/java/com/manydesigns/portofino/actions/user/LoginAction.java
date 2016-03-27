@@ -455,6 +455,11 @@ public abstract class LoginAction extends AbstractActionBean {
         try {
             Object user = portofinoRealm.getSelfRegisteredUserClassAccessor().newInstance();
             signUpForm.writeToObject(user);
+            // hongliangpan add
+//            if (((User) user).email.indexOf("taotao.com.cn") < 0) {
+//                SessionMessages.addErrorMessage("请使用***@taotao.com.cn邮箱注册");
+//                return new ForwardResolution(getSignUpPage());
+//            }
             String token = portofinoRealm.saveSelfRegisteredUser(user);
 
             HttpServletRequest req = context.getRequest();
@@ -483,7 +488,9 @@ public abstract class LoginAction extends AbstractActionBean {
             return getSignUpView();
         }
     }
-
+    protected String getSignUpPage() {
+        return "/m/base/actions/user/signUp.jsp";
+    }
     protected boolean validateCaptcha() {
         HttpServletRequest request = context.getRequest();
         HttpSession session = request.getSession();

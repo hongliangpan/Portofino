@@ -20,6 +20,8 @@
 
 package com.manydesigns.portofino.chart;
 
+import com.manydesigns.portofino.pageactions.chart.jfreechart.CustomChartColor;
+
 import org.jfree.chart.plot.DrawingSupplier;
 
 import java.awt.*;
@@ -35,9 +37,10 @@ public class DesaturatedDrawingSupplier implements DrawingSupplier {
             "Copyright (c) 2005-2015, ManyDesigns srl";
 
     private final DrawingSupplier inner;
+    private final Paint[] paintArray = CustomChartColor.createDefaultPaintArray();
 
     // desaturated
-    private final Paint[] paintArray = {
+    private final Paint[] paintArray1 = {
         new Color(0xcc5252), // saturazione 60, luminosita' 80
         new Color(0x52cc52),
         new Color(0x5252cc),

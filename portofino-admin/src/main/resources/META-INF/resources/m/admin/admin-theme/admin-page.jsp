@@ -130,8 +130,7 @@
         </div>
         <footer>
             <div class="container">
-                Powered by <a href="http://portofino.manydesigns.com/">Portofino</a>
-                <c:out value="<%= ModuleRegistry.getPortofinoVersion() %>"/>
+                技术支持 <a href="http://ysg.glodon.com/">云施工</a>
             </div>
         </footer>
     </div>

@@ -33,7 +33,10 @@ public class ChartBarUrlGenerator implements CategoryURLGenerator {
 
     public ChartBarUrlGenerator(String expression) {
         format = OgnlTextFormat.create(expression);
-        format.setUrl(true);
+        
+        // hongliangpan add 解决中文乱码问题
+        format.setEncoding("UTF-8");
+		format.setUrl(true);
         value = new BarURLGeneratorValue();
     }
 

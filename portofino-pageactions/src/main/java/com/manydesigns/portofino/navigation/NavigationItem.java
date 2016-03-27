@@ -84,4 +84,9 @@ public class NavigationItem {
     public List<NavigationItem> getChildNavigationItems() {
         return childNavigationItems;
     }
+
+    @Override
+    public String toString() {
+        return com.alibaba.fastjson.JSON.toJSONString(this);
+    }
 }

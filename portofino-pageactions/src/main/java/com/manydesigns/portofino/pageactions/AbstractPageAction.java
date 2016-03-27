@@ -544,26 +544,22 @@ public abstract class AbstractPageAction extends AbstractActionBean implements P
     protected void prepareScript() {
         String pageId = pageInstance.getPage().getId();
         File file = ScriptingUtil.getGroovyScriptFile(pageInstance.getDirectory(), "action");
-        FileReader fr = null;
         try {
-            fr = new FileReader(file);
-            script = IOUtils.toString(fr);
+            //hongliangpan modify utf-8 commons-io2.4
+            script = IOUtils.toString(file.toURI(),"utf-8");
         } catch (Exception e) {
             logger.warn("Couldn't load script for page " + pageId, e);
-        } finally {
-            IOUtils.closeQuietly(fr);
         }
     }
-
     protected void updateScript() {
         File directory = pageInstance.getDirectory();
         File groovyScriptFile = ScriptingUtil.getGroovyScriptFile(directory, "action");
-        FileWriter fw = null;
+        FileOutputStream stream= null;
         try {
-            fw = new FileWriter(groovyScriptFile);
-            fw.write(script);
-            fw.flush();
-            fw.close();
+            //hongliangpan add save utf-8
+            stream = new FileOutputStream(groovyScriptFile);
+            IOUtils.write(script, stream, "utf-8");
+
             Class<?> scriptClass = DispatcherLogic.getActionClass(portofinoConfiguration, directory, false);
             if(scriptClass == null) {
                 SessionMessages.addErrorMessage(ElementsThreadLocals.getText("script.class.is.not.valid"));
@@ -588,7 +584,7 @@ public abstract class AbstractPageAction extends AbstractActionBean implements P
             logger.warn("Couldn't compile script for page " + pageId, e);
             SessionMessages.addErrorMessage(ElementsThreadLocals.getText("couldnt.compile.script"));
         } finally {
-            IOUtils.closeQuietly(fw);
+            IOUtils.closeQuietly(stream);
         }
     }
 

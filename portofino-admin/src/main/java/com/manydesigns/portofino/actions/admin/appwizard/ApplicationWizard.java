@@ -1153,6 +1153,8 @@ public class ApplicationWizard extends AbstractPageAction {
             throws Exception {
         String query = "from " + table.getActualEntityName() + " order by id desc";
         String title = Util.guessToWords(table.getActualEntityName());
+		// hongliangpan add
+		title = table.getMemo();
         HashMap<String, String> bindings = new HashMap<String, String>();
         bindings.put("parentName", "");
         bindings.put("parentProperty", "nothing");
@@ -1180,6 +1182,11 @@ public class ApplicationWizard extends AbstractPageAction {
             detectLargeResultSet(table, configuration);
 
             configuration.setName(table.getActualEntityName());
+			// hongliangpan add
+			configuration.setSearchTitle("搜索" + title);
+			configuration.setCreateTitle("新建" + title);
+			configuration.setEditTitle("编辑" + title);
+			configuration.setReadTitle(title);
 
             int summ = 0;
             String linkToParentProperty = bindings.get("linkToParentProperty");
@@ -1265,6 +1272,11 @@ public class ApplicationWizard extends AbstractPageAction {
         boolean updatable = enabled && !column.isAutoincrement() && !inPk;
         boolean insertable = enabled && !column.isAutoincrement();
 
+        // hongliangpan add
+        if (column.getColumnName().startsWith("c_is_")) {
+            column.setJavaType(Boolean.class.getName());
+        }
+
         if(!configuration.isLargeResultSet()) {
             detectBooleanColumn(table, column);
         }
@@ -1305,6 +1317,8 @@ public class ApplicationWizard extends AbstractPageAction {
         CrudProperty crudProperty = new CrudProperty();
         crudProperty.setEnabled(enabled);
         crudProperty.setName(column.getActualPropertyName());
+        // hongliangpan add
+        crudProperty.setLabel(column.getMemo());
         crudProperty.setInsertable(insertable);
         crudProperty.setUpdatable(updatable);
         if(inSummary) {
@@ -1312,11 +1326,38 @@ public class ApplicationWizard extends AbstractPageAction {
             crudProperty.setSearchable(true);
             columnsInSummary++;
         }
+        // hongliangpan add 处理扩展字段c_tag1 c_json
+        processTagField(crudProperty, column);
+        processID(crudProperty, column);
+
         configuration.getProperties().add(crudProperty);
 
         return columnsInSummary;
     }
+    // hongliangpan add process 处理扩展字段c_tag1 c_json
+    private void processID(CrudProperty crudProperty, Column column) {
+        if (!column.getColumnName().equalsIgnoreCase("c_id")&&!column.getColumnName().equalsIgnoreCase("id")) {
+            return;
+        }
+        crudProperty.setEnabled(false);
+        crudProperty.setInsertable(false);
+        crudProperty.setUpdatable(false);
+        crudProperty.setInSummary(false);
+        crudProperty.setSearchable(false);
+    }
 
+    // hongliangpan add process 处理扩展字段c_tag1 c_json
+    private void processTagField(CrudProperty crudProperty, Column column) {
+        if (!column.getColumnName().startsWith("c_tag") && !column.getColumnName().equalsIgnoreCase("c_json")) {
+            return;
+        }
+        crudProperty.setEnabled(false);
+
+        crudProperty.setInsertable(false);
+        crudProperty.setUpdatable(false);
+        crudProperty.setInSummary(false);
+        crudProperty.setSearchable(false);
+    }
     protected boolean isUnsupportedProperty(Column column) {
         //I blob su db non sono supportati al momento
         return column.getJdbcType() == Types.BLOB || column.getJdbcType() == Types.LONGVARBINARY;

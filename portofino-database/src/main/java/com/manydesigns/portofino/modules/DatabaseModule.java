@@ -24,6 +24,7 @@ import com.manydesigns.portofino.database.platforms.DatabasePlatformsRegistry;
 import com.manydesigns.portofino.di.Inject;
 import com.manydesigns.portofino.di.Injections;
 import com.manydesigns.portofino.persistence.Persistence;
+import com.manydesigns.portofino.util.DbUtils;
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,6 +118,8 @@ public class DatabaseModule implements Module {
         servletContext.setAttribute(PERSISTENCE, persistence);
 
         status = ModuleStatus.ACTIVE;
+        // hongliangpan add
+        DbUtils.setPersistence(persistence);
     }
 
     @Override

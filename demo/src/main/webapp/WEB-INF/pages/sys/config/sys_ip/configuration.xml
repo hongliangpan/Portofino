@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration database="point" query="from sys_ip order by id desc" name="sys_ip" searchTitle="Search ip区域表" createTitle="Create ip区域表" readTitle="ip区域表" editTitle="Edit ip区域表" variable="sys_ip" largeResultSet="true" rowsPerPage="10" columns="1">
+    <properties>
+        <property enabled="false" name="id" label="ID" insertable="false" updatable="false" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="ip_num" label="IP数值" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="ip_str" label="IP地址" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="post_code" label="邮编" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="lon" label="经度" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="lat" label="纬度" insertable="true" updatable="true" inSummary="false" searchable="false">
+            <annotations/>
+        </property>
+        <property enabled="true" name="province" label="省" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="city" label="市" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+        <property enabled="true" name="county" label="区" insertable="true" updatable="true" inSummary="true" searchable="true">
+            <annotations/>
+        </property>
+    </properties>
+    <selectionProviders/>
+</configuration>
